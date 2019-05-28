@@ -1,20 +1,20 @@
 <?php 
 error_reporting(E_ALL ^ E_NOTICE);
 if(!isset($_SESSION))session_start();
-if(!$_SESSION[admin_id]){
+if(!$_SESSION['admin_id']){
 $_SESSION[volver]=$_SERVER['PHP_SELF']."?".$_SERVER['QUERY_STRING'];
 header("Location: index.php");
 }
 require_once('../conexion.php'); ?>
 <?php
-	if($_POST[enviar] == "Modificar"){
+	if($_POST['enviar'] == "Modificar"){
 		echo $q="UPDATE `clientes` SET `nombre` = '$_POST[nombre]', `email` = '$_POST[email]', `telefono` = '$_POST[telefono]', `nacionalidad` = '$_POST[nacionalidad]', `direccion` = '$_POST[direccion]', `numero` = '$_POST[numero]', `comuna` = '$_POST[comuna]', `usuario` = '$_POST[usuario]', `contrasena` = '$_POST[contrasena]' WHERE `clientes`.`id` = $_POST[id];";
 		$resource=$conn->query($q);
 		header("Location: listado_usuarios.php");
 	}
 ?>
 <?php
-if($_GET[id]==0){
+if($_GET['id']==0){
        header("Location: listado_usuarios.php"); 
         }
 $query=" SELECT * FROM clientes WHERE id='$_GET[id]'";
@@ -183,7 +183,7 @@ $row = $resource->fetch_assoc();
 					  <div class="col-md-4 inputGroupContainer">
 					  <div class="input-group">
 					  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-					  <input  name="nombre" id="nombre" placeholder="Ingrese Nombre de Producto" class="form-control"  type="text" value="<?php echo $row[nombre]?>">
+					  <input  name="nombre" id="nombre" placeholder="Ingrese Nombre de Producto" class="form-control"  type="text" value="<?php echo $row['nombre']?>">
 					    </div>
 					  </div>
 					</div>
@@ -193,7 +193,7 @@ $row = $resource->fetch_assoc();
 					    <div class="col-md-4 inputGroupContainer">
 					    <div class="input-group">
 					        <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
-					  <input name="email" id="email" placeholder="Ingrese su Email" class="form-control"  type="email" value="<?php echo $row[email]?>">
+					  <input name="email" id="email" placeholder="Ingrese su Email" class="form-control"  type="email" value="<?php echo $row['email']?>">
 					    </div>
 					  </div>
 					</div>
@@ -205,7 +205,7 @@ $row = $resource->fetch_assoc();
 					    <div class="col-md-4 inputGroupContainer">
 					    <div class="input-group">
 					        <span class="input-group-addon"><i class="glyphicon glyphicon-earphone"></i></span>
-					  <input name="telefono" id="telefono" class="form-control" type="text" value="<?php echo $row[telefono]?>" placeholder="+56 9 / +56 2">
+					  <input name="telefono" id="telefono" class="form-control" type="text" value="<?php echo $row['telefono']?>" placeholder="+56 9 / +56 2">
 					    </div>
 					  </div>
 					</div>
@@ -220,16 +220,16 @@ $row = $resource->fetch_assoc();
 									<span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
 									<select name="nacionalidad" id="nacionalidad" class="form-control selectpicker">
 									  <option value=" ">Seleccione País</option>
-									  <option value="Chile" <?php if($row[nacionalidad]=="Chile") echo selected ?>>Chile</option>
-									  <option value="Argentina" <?php if($row[nacionalidad]=="Argentina") echo selected ?>>Argentina</option>
-									  <option value="Brasil" <?php if($row[nacionalidad]=="Brasil") echo selected ?>>Brasil</option>
-									  <option value="Perú" <?php if($row[nacionalidad]=="Perú") echo selected ?>>Perú</option>
-									  <option value="Bolivia" <?php if($row[nacionalidad]=="Bolivia") echo selected ?>>Bolivia</option>
-									  <option value="Colombia" <?php if($row[nacionalidad]=="Colombia") echo selected ?>>Colombia</option>
-									  <option value="Ecuador" <?php if($row[nacionalidad]=="Ecuador") echo selected ?>>Ecuador</option>
-									  <option value="Paraguay" <?php if($row[nacionalidad]=="Paraguay") echo selected ?>>Paraguay</option>
-									  <option value="Uruguay" <?php if($row[nacionalidad]=="Uruguay") echo selected ?>>Uruguay</option>
-									  <option value="Venezuela" <?php if($row[nacionalidad]=="Venezuela") echo selected ?>>Venezuela</option>
+									  <option value="Chile" <?php if($row['nacionalidad']=="Chile") echo selected ?>>Chile</option>
+									  <option value="Argentina" <?php if($row['nacionalidad']=="Argentina") echo selected ?>>Argentina</option>
+									  <option value="Brasil" <?php if($row['nacionalidad']=="Brasil") echo selected ?>>Brasil</option>
+									  <option value="Perú" <?php if($row['nacionalidad']=="Perú") echo selected ?>>Perú</option>
+									  <option value="Bolivia" <?php if($row['nacionalidad']=="Bolivia") echo selected ?>>Bolivia</option>
+									  <option value="Colombia" <?php if($row['nacionalidad']=="Colombia") echo selected ?>>Colombia</option>
+									  <option value="Ecuador" <?php if($row['nacionalidad']=="Ecuador") echo selected ?>>Ecuador</option>
+									  <option value="Paraguay" <?php if($row['nacionalidad']=="Paraguay") echo selected ?>>Paraguay</option>
+									  <option value="Uruguay" <?php if($row['nacionalidad']=="Uruguay") echo selected ?>>Uruguay</option>
+									  <option value="Venezuela" <?php if($row['nacionalidad']=="Venezuela") echo selected ?>>Venezuela</option>
 									</select>
 							  </div>
 							</div>
@@ -242,7 +242,7 @@ $row = $resource->fetch_assoc();
 					    <div class="col-md-4 inputGroupContainer">
 					    <div class="input-group">
 					        <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
-					  <input name="direccion" id="direccion" placeholder="Calle" class="form-control" type="text" value="<?php echo $row[direccion]?>">
+					  <input name="direccion" id="direccion" placeholder="Calle" class="form-control" type="text" value="<?php echo $row['direccion']?>">
 					    </div>
 					  </div>
 					</div>
@@ -254,7 +254,7 @@ $row = $resource->fetch_assoc();
 					    <div class="col-md-4 inputGroupContainer">
 					    <div class="input-group">
 					        <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
-					  <input name="numero" id="numero" placeholder="N°" class="form-control" type="text" value="<?php echo $row[numero]?>">
+					  <input name="numero" id="numero" placeholder="N°" class="form-control" type="text" value="<?php echo $row['numero']?>">
 					    </div>
 					  </div>
 					</div>
@@ -266,7 +266,7 @@ $row = $resource->fetch_assoc();
 					    <div class="col-md-4 inputGroupContainer">
 					    <div class="input-group">
 					        <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
-					  <input name="comuna" id="comuna" placeholder="Sector" class="form-control" type="text" value="<?php echo $row[comuna]?>">
+					  <input name="comuna" id="comuna" placeholder="Sector" class="form-control" type="text" value="<?php echo $row['comuna']?>">
 					    </div>
 					  </div>
 					</div>
@@ -278,7 +278,7 @@ $row = $resource->fetch_assoc();
 					  <div class="col-md-4 inputGroupContainer">
 					  <div class="input-group">
 					  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-					  <input  name="usuario" id="usuario" placeholder="Usuario" class="form-control"  type="text" value="<?php echo $row[usuario]?>">
+					  <input  name="usuario" id="usuario" placeholder="Usuario" class="form-control"  type="text" value="<?php echo $row['usuario']?>">
 					    </div>
 					  </div>
 					</div>
@@ -290,7 +290,7 @@ $row = $resource->fetch_assoc();
 					    <div class="col-md-4 inputGroupContainer">
 					    <div class="input-group">
 					  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-					  <input name="contrasena" placeholder="Contraseña" class="form-control"  type="text" value="<?php echo $row[contrasena]?>">
+					  <input name="contrasena" placeholder="Contraseña" class="form-control"  type="text" value="<?php echo $row['contrasena']?>">
 					    </div>
 					  </div>
 					</div>
@@ -308,7 +308,7 @@ $row = $resource->fetch_assoc();
 					</div>
 
 					</fieldset>
-					<input type="hidden" name="id" id="id" value="<?php echo $row[id]?>">
+					<input type="hidden" name="id" id="id" value="<?php echo $row['id']?>">
 				</form>
 				
 			</div><!-- /.container -->

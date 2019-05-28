@@ -1,27 +1,27 @@
 <?php 
 error_reporting(E_ALL ^ E_NOTICE);
 if(!isset($_SESSION))session_start();
-if(!$_SESSION[admin_id]){
+if(!$_SESSION['admin_id']){
 $_SESSION[volver]=$_SERVER['PHP_SELF']."?".$_SERVER['QUERY_STRING'];
 header("Location: index.php");
 }
 require_once('../conexion.php'); ?>
 <?php
-if(isset($_GET[idElm])&& $_GET[idElm]<>""){
+if(isset($_GET['idElm'])&& $_GET['idElm']<>""){
 		$q="DELETE FROM clientes WHERE 1 AND id='$_GET[idElm]'";
 		$r=$conn->query($q);
 	}
 $max=5;
 $pag=0;
-if(isset($_GET[pag]) && $_GET[pag] <>""){
+if(isset($_GET['pag']) && $_GET['pag'] <>""){
 $pag=$_GET[pag];
 }
 $inicio=$pag * $max;
 $query="SELECT id, nombre, email, telefono, nacionalidad FROM clientes ORDER BY fecha DESC";
 $query_limit= $query ." LIMIT $inicio,$max";
 $resource = $conn->query($query_limit);
-if (isset($_GET[total])) {
-$total = $_GET[total];
+if (isset($_GET['total'])) {
+$total = $_GET['total'];
 } else {
 $resource_total = $conn -> query($query);
 $total = $resource_total->num_rows;
@@ -78,12 +78,12 @@ $total_pag = ceil($total/$max)-1;
                 <tbody>
                  <?php  while ($row = $resource->fetch_assoc()){?>
                   <tr>
-                    <td class="col-xs-3 col-sm-3 col-md-4 col-lg-3"><?php echo $row[nombre]?></td>
-                    <td class="col-xs-3 col-sm-3 col-md-4 col-lg-3"><a href="mailto:<?php echo $row[email]?>"><?php echo $row[email]?></a></td>
-                    <td class="col-xs-3 col-sm-3 col-md-4 col-lg-3"><a href="tel:<?php echo $row[telefono]?>"><?php echo $row[telefono]?></a></td>
-                    <td class="col-xs-3 col-sm-3 col-md-4 col-lg-3"><?php echo $row[nacionalidad]?></td>
-                    <td class="col-xs-3 col-sm-3 col-md-4 col-lg-3"><a href="usuarios_modificar.php?id=<?php echo $row[id]?>" class="btn btn-md btn-success"><span class="glyphicon glyphicon-wrench" aria-hidden="true"></span></a></td>
-                    <td class="col-xs-3 col-sm-3 col-md-4 col-lg-3"><a href="listado_usuarios.php?idElm=<?php echo $row[id]?>" class="btn btn-md btn-danger" onClick="return confirm('¿Está seguro que desea eliminar este Producto?')"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td>
+                    <td class="col-xs-3 col-sm-3 col-md-4 col-lg-3"><?php echo $row['nombre']?></td>
+                    <td class="col-xs-3 col-sm-3 col-md-4 col-lg-3"><a href="mailto:<?php echo $row['email']?>"><?php echo $row['email']?></a></td>
+                    <td class="col-xs-3 col-sm-3 col-md-4 col-lg-3"><a href="tel:<?php echo $row['telefono']?>"><?php echo $row['telefono']?></a></td>
+                    <td class="col-xs-3 col-sm-3 col-md-4 col-lg-3"><?php echo $row['nacionalidad']?></td>
+                    <td class="col-xs-3 col-sm-3 col-md-4 col-lg-3"><a href="usuarios_modificar.php?id=<?php echo $row['id']?>" class="btn btn-md btn-success"><span class="glyphicon glyphicon-wrench" aria-hidden="true"></span></a></td>
+                    <td class="col-xs-3 col-sm-3 col-md-4 col-lg-3"><a href="listado_usuarios.php?idElm=<?php echo $row['id']?>" class="btn btn-md btn-danger" onClick="return confirm('¿Está seguro que desea eliminar este Producto?')"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td>
                   </tr>
                   <?php }?>
                 </tbody>

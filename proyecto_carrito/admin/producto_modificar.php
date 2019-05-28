@@ -1,13 +1,13 @@
 <?php 
 error_reporting(E_ALL ^ E_NOTICE);
 if(!isset($_SESSION))session_start();
-if(!$_SESSION[admin_id]){
+if(!$_SESSION['admin_id']){
 $_SESSION[volver]=$_SERVER['PHP_SELF']."?".$_SERVER['QUERY_STRING'];
 header("Location: index.php");
 }
 require_once('../conexion.php'); ?>
 <?php
-	if($_POST[enviar] == "Modificar"){
+	if($_POST['enviar'] == "Modificar"){
 		$unidad=implode(',',$_POST[unidad]);
 		$q="UPDATE `productos` SET `nombre` = '$_POST[nombre]', `codigo` = '$_POST[codigo]', `categoria` = '$_POST[categoria]', `frase_promocional` = '$_POST[frase_promocional]', `unidad` = '$unidad', `precio` = '$_POST[precio]', `disponibilidad` = '$_POST[disponibilidad]', `descripcion` = '$_POST[descripcion]', `promocion` = '$_POST[promocion]' WHERE `productos`.`id` = $_POST[id];";
 		$resource=$conn->query($q);
@@ -176,7 +176,7 @@ $arrayColores = explode(",",$rowColores);
 					  <div class="col-md-4 inputGroupContainer">
 					  <div class="input-group">
 					  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-					  <input  name="nombre" id="nombre" placeholder="Ingrese Nombre de Producto" class="form-control"  type="text" value="<?php echo $row[nombre]?>">
+					  <input  name="nombre" id="nombre" placeholder="Ingrese Nombre de Producto" class="form-control"  type="text" value="<?php echo $row['nombre']?>">
 					    </div>
 					  </div>
 					</div>
@@ -187,7 +187,7 @@ $arrayColores = explode(",",$rowColores);
 							    <div class="col-md-4 inputGroupContainer">
 							    <div class="input-group">
 							        <span class="input-group-addon"><i class="glyphicon glyphicon-barcode"></i></span>
-							  		<input name="codigo" id="codigo" placeholder="Ingrese Código" class="form-control"  type="text" style="text-transform: uppercase" value="<?php echo $row[codigo]?>">
+							  		<input name="codigo" id="codigo" placeholder="Ingrese Código" class="form-control"  type="text" style="text-transform: uppercase" value="<?php echo $row['codigo']?>">
 							    </div>
 							  </div>
 							</div>
@@ -201,10 +201,10 @@ $arrayColores = explode(",",$rowColores);
 									<span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
 									<select name="categoria" id="categoria" class="form-control selectpicker" >
 										<option value=" " >Seleccione Una categoría</option>
-										 <option value="Frutas"<?php if($row[categoria]=="Frutas") echo selected ?>>Consolas</option>
-										 <option value="Legumbres"<?php if($row[categoria]=="Legumbres") echo selected ?>>Figuras</option>
-										 <option value="Congelados"<?php if($row[categoria]=="Congelados") echo selected ?>>Juegos</option>
-										 <option value="Coctel"<?php if($row[categoria]=="Coctel") echo selected ?>>PC Gamer</option>
+										 <option value="Frutas"<?php if($row['categoria']=="Frutas") echo selected ?>>Consolas</option>
+										 <option value="Legumbres"<?php if($row['categoria']=="Legumbres") echo selected ?>>Figuras</option>
+										 <option value="Congelados"<?php if($row['categoria']=="Congelados") echo selected ?>>Juegos</option>
+										 <option value="Coctel"<?php if($row['categoria']=="Coctel") echo selected ?>>PC Gamer</option>
 										
 									</select>
 								</div>
@@ -218,7 +218,7 @@ $arrayColores = explode(",",$rowColores);
 					    <div class="col-md-4 inputGroupContainer">
 					    <div class="input-group">
 					        <span class="input-group-addon"><i class="glyphicon glyphicon-align-left"></i></span>
-				    	<textarea name="frase_promocional" id="frase_promocional" cols="30" rows="10" placeholder="Ingrese Frase Promocional" class="form-control" type="text"><?php echo $row[frase_promocional]?></textarea>
+				    	<textarea name="frase_promocional" id="frase_promocional" cols="30" rows="10" placeholder="Ingrese Frase Promocional" class="form-control" type="text"><?php echo $row['frase_promocional']?></textarea>
 					    </div>
 					  </div>
 					</div>
@@ -244,7 +244,7 @@ $arrayColores = explode(",",$rowColores);
 					    <div class="col-md-4 inputGroupContainer">
 					    <div class="input-group">
 					        <span class="input-group-addon"><i class="glyphicon glyphicon-usd"></i></span>
-					  	<input name="precio" id="precio" placeholder="Ingrese Precio $" class="form-control" type="text" value="<?php echo $row[precio]?>">
+					  	<input name="precio" id="precio" placeholder="Ingrese Precio $" class="form-control" type="text" value="<?php echo $row['precio']?>">
 					    </div>
 					  </div>
 					</div>
@@ -255,10 +255,10 @@ $arrayColores = explode(",",$rowColores);
 						 <label class="col-md-4 control-label">Disponibilidad</label>
 						 <div class="col-md-4 inputGroupContainer">        	      
 							<div class="radio">
-							  <label><input type="radio" name="disponibilidad" value="1" required <?php if($row[disponibilidad]== 1) echo checked ?>>Si</label>
+							  <label><input type="radio" name="disponibilidad" value="1" required <?php if($row['disponibilidad']== 1) ?>>Si</label>
 							</div>
 							<div class="radio">
-							  <label><input type="radio" name="disponibilidad" value="0" required <?php if($row[disponibilidad]== 0) echo checked ?>>No</label>
+							  <label><input type="radio" name="disponibilidad" value="0" required <?php if($row['disponibilidad']== 0)  ?>>No</label>
 							</div>
 						 </div>
 					</div>
@@ -270,7 +270,7 @@ $arrayColores = explode(",",$rowColores);
 					    <div class="col-md-4 inputGroupContainer">
 					    <div class="input-group">
 					        <span class="input-group-addon"><i class="glyphicon glyphicon-align-left"></i></span>
-				    	<textarea name="descripcion" id="descripcion" cols="30" rows="10" placeholder="Ingrese Descripción" class="form-control" type="text"><?php echo $row[descripcion]?></textarea>
+				    	<textarea name="descripcion" id="descripcion" cols="30" rows="10" placeholder="Ingrese Descripción" class="form-control" type="text"><?php echo $row['descripcion']?></textarea>
 					    </div>
 					  </div>
 					</div>
@@ -281,10 +281,10 @@ $arrayColores = explode(",",$rowColores);
 						 <div class="col-md-4 inputGroupContainer">        	      
 							<div class="radio">
 							  <label>
-							  <input type="radio" name="promocion" value="Si" required  <?php if($row[promocion]=="Si") echo checked ?>>Si</label>
+							  <input type="radio" name="promocion" value="Si" required  <?php if($row['promocion']=="Si") ?>>Si</label>
 							</div>
 							<div class="radio">
-							  <label><input type="radio" name="promocion" value="No" required  <?php if($row[promocion]=="No") echo checked ?>>No</label>
+							  <label><input type="radio" name="promocion" value="No" required  <?php if($row['promocion']=="No") ?>>No</label>
 							</div>
 						 </div>
 					</div>
@@ -302,7 +302,7 @@ $arrayColores = explode(",",$rowColores);
 					</div>
 
 					</fieldset>
-					<input type="hidden" name="id" id="id" value="<?php echo $row[id]?>">
+					<input type="hidden" name="id" id="id" value="<?php echo $row['id']?>">
 				</form>
 				
 			</div><!-- /.container -->
