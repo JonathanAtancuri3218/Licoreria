@@ -291,6 +291,8 @@ require_once('../conexion.php'); ?>
 					</fieldset>
 				</form>
 			</div><!-- /.container -->
+
+			<!-- /.hola -->
 			 <?php 
                 include("footer.php"); 
             ?>
