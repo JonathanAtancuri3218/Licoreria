@@ -1,5 +1,5 @@
 <?php 
-error_reporting(E_ALL ^ E_NOTICE);
+error_reporting('E_ALL ^ E_NOTICE');
 require_once("conexion.php")?>
 <?php 
 if(!$_SESSION['user_id']){
@@ -153,6 +153,5 @@ header("Location: login.php");
     <?php include("footer.php");?><!-- End Footer -->
     <!-- JS -->
     <?php include("js.php");?><!-- End JS -->
-    <!-- hola  -->
   </body>
 </html>
