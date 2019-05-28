@@ -2,7 +2,7 @@
 error_reporting(E_ALL ^ E_NOTICE);
 require_once('conexion.php'); ?>
 <?php	
-	if($_POST[registro] == "registro"){
+	if($_POST['registro'] == "registro"){
 		//print_r($_POST);
 		$q="INSERT INTO `clientes` (`id`, `nombre`, `email`, `telefono`, `nacionalidad`, `direccion`, `numero`, `comuna`, `usuario`, `contrasena`, `fecha`) VALUES (NULL, '$_POST[nombre]', '$_POST[email]', '$_POST[telefono]', '$_POST[nacionalidad]', '$_POST[direccion]', '$_POST[numero]', '$_POST[comuna]', '$_POST[usuario]', '$_POST[contrasena]', CURRENT_TIMESTAMP)";
 		//print_r($q);
