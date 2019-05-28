@@ -5,7 +5,7 @@
                     <nav class="user-menu">
                         <ul>
                             <?php if($_SESSION['user_id']){?>
-                            <li><a href="mis-datos.php?id=<?php echo $_SESSION[user_id]?>"><i class="fa fa-user" aria-hidden="true"></i> Mis datos</a></li>
+                            <li><a href="mis-datos.php?id=<?php echo $_SESSION['user_id']?>"><i class="fa fa-user" aria-hidden="true"></i> Mis datos</a></li>
                             <li><a href="carrito.php"><i class="fa fa-shopping-cart"></i> Ver Carrito</a></li>
                             <li><a href="logout.php"><i class="fa fa-sign-out" aria-hidden="true"></i> Salir</a></li>
                             <?php }else{?>
@@ -34,7 +34,7 @@
                 <div class="col-sm-12">
                     <div class="logo">
                         <center>
-                            <h1><a href="index.php"><img src="img/LogoUPS.JPG"  class="img-responsive"></a></h1>
+                            <h1><a href="index.php"><img src="img/LogoUPS.JPG" class="img-responsive"></a></h1>
                         </center>
                     </div>
                 </div>
