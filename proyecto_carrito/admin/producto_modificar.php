@@ -201,10 +201,10 @@ $arrayColores = explode(",",$rowColores);
 									<span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
 									<select name="categoria" id="categoria" class="form-control selectpicker" >
 										<option value=" " >Seleccione Una categoría</option>
-										 <option value="Frutas"<?php if($row['categoria']=="Frutas") echo selected ?>>Consolas</option>
-										 <option value="Legumbres"<?php if($row['categoria']=="Legumbres") echo selected ?>>Figuras</option>
-										 <option value="Congelados"<?php if($row['categoria']=="Congelados") echo selected ?>>Juegos</option>
-										 <option value="Coctel"<?php if($row['categoria']=="Coctel") echo selected ?>>PC Gamer</option>
+										 <option value="Frutas"<?php if($row['categoria']=="Ron") echo selected ?>>Ron</option>
+										 <option value="Legumbres"<?php if($row['categoria']=="Cervesas") echo selected ?>>Cervezas</option>
+										 <option value="Congelados"<?php if($row['categoria']=="Vinos") echo selected ?>>Vinos</option>
+										 <option value="Coctel"<?php if($row['categoria']=="Licores") echo selected ?>>Licores</option>
 										
 									</select>
 								</div>
