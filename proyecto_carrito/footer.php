@@ -19,7 +19,7 @@
                     <div class="footer-menu">
                         <h2 class="footer-wid-title"> Usuario</h2>
                         <ul>
-                            <?php if($_SESSION[user_id]){?>
+                            <?php if($_SESSION['user_id']){?>
                             <li><a href="mis-datos.php?id=<?php echo $_SESSION[user_id]?>"><i class="fa fa-user" aria-hidden="true"></i> Mis datos</a></li>
                             <li><a href="carrito.php"><i class="fa fa-shopping-cart"></i> Mi Carrito</a></li>
                             <li><a href="logout.php"><i class="fa fa-sign-out" aria-hidden="true"></i> Salir</a></li>

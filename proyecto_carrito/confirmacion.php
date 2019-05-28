@@ -2,7 +2,7 @@
 error_reporting(E_ALL ^ E_NOTICE);
 require_once("conexion.php")?>
 <?php 
-if(!$_SESSION[user_id]){
+if(!$_SESSION['user_id']){
 $_SESSION[volver]=$_SERVER['PHP_SELF']."?".$_SERVER['QUERY_STRING'];
 header("Location: login.php");
 }
@@ -68,21 +68,21 @@ header("Location: login.php");
                                            <?php while ($row = $r->fetch_assoc()){?>
                                             <tr class="cart_item wow fadeIn">
                                                 <td class="product-thumbnail">
-                                                  <img width="145" height="145" alt="<?php echo $row[nombre]?>" class="shop_thumbnail" src="img/<?php echo $row[codigo]?>.jpg">
+                                                  <img width="145" height="145" alt="<?php echo $row['nombre']?>" class="shop_thumbnail" src="img/<?php echo $row['codigo']?>.jpg">
                                                 </td>
 
                                                 <td class="product-name">
-                                                    <?php echo $row[nombre]?>
+                                                    <?php echo $row['nombre']?>
                                                 </td>
 
                                                 <td class="product-price">
-                                                    <span class="amount">$<?php echo number_format($precio=$row[precio], 0, ',', '.');?>
+                                                    <span class="amount">$<?php echo number_format($precio=$row['precio'], 0, ',', '.');?>
                                                     </span> 
                                                 </td>
 
                                                 <td class="product-quantity">
                                                     <div class="quantity buttons_added">
-                                                        <?php echo $cantidad=$row[cantidad]?>
+                                                        <?php echo $cantidad=$row['cantidad']?>
                                                     </div>
                                                 </td>
 

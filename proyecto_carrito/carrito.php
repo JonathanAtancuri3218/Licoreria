@@ -2,13 +2,13 @@
 error_reporting(E_ALL ^ E_NOTICE);
 require_once("conexion.php")?>
 <?php 
-if(!$_SESSION[user_id]){
+if(!$_SESSION['user_id']){
 $_SESSION[volver]=$_SERVER['PHP_SELF']."?".$_SERVER['QUERY_STRING'];
 header("Location: login.php");
 }
 ?>
 <?php	
-	if(isset($_GET[idElm])&& $_GET[idElm]<>""){
+	if(isset($_GET['idElm'])&& $_GET['idElm']<>""){
 		$q="DELETE FROM compras WHERE 1 AND id='$_GET[idElm]'";
 		$r=$conn->query($q);
 	}
@@ -76,21 +76,21 @@ header("Location: login.php");
                                            <?php while ($row = $r->fetch_assoc()){?>
                                             <tr class="cart_item wow fadeIn">
                                                 <td class="product-thumbnail">
-                                                  <img width="145" height="145" alt="<?php echo $row[nombre]?>" class="shop_thumbnail" src="img/<?php echo $row[codigo]?>.jpg">
+                                                  <img width="145" height="145" alt="<?php echo $row['nombre']?>" class="shop_thumbnail" src="img/<?php echo $row['codigo']?>.jpg">
                                                 </td>
 
                                                 <td class="product-name">
-                                                    <?php echo $row[nombre]?>
+                                                    <?php echo $row['nombre']?>
                                                 </td>
 
                                                 <td class="product-price">
-                                                    <span class="amount">$<?php echo number_format($precio=$row[precio], 0, ',', '.');?>
+                                                    <span class="amount">$<?php echo number_format($precio=$row['precio'], 0, ',', '.');?>
                                                     </span> 
                                                 </td>
 
                                                 <td class="product-quantity">
                                                     <div class="quantity buttons_added">
-                                                        <?php echo $cantidad=$row[cantidad]?>
+                                                        <?php echo $cantidad=$row['cantidad']?>
                                                     </div>
                                                 </td>
 
@@ -98,10 +98,10 @@ header("Location: login.php");
                                                     <span class="amount">$<?php echo number_format($sub=$precio*$cantidad); $subtotal+=$sub?></span> 
                                                 </td>
                                                 <td>
-                                                    <a href="modificar.php?id=<?php echo $row[id];?>&codigo=<?php echo $row[codigo];?>" class="btn btn-info"><span class="glyphicon glyphicon-pencil" aria-hidden="true" title="modificar"></span></a>
+                                                    <a href="modificar.php?id=<?php echo $row['id'];?>&codigo=<?php echo $row['codigo'];?>" class="btn btn-info"><span class="glyphicon glyphicon-pencil" aria-hidden="true" title="modificar"></span></a>
                                                 </td>
                                                 <td>
-                                                    <a href="carrito.php?idElm=<?php echo $row[id]?>" onClick="return confirm('¿Está seguro que desea eliminar esta compra?')" class="btn btn-danger"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
+                                                    <a href="carrito.php?idElm=<?php echo $row['id']?>" onClick="return confirm('¿Está seguro que desea eliminar esta compra?')" class="btn btn-danger"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
                                                 </td>
                                             </tr>
                                             <?php }?>  

@@ -8,7 +8,7 @@ if ($conn ->connect_error) {
 die('Error de Conexión (' . $conn->connect_errno . ') '
 . $conn->connect_error);
 }
-$fecha=$row[fecha];
+$fecha=$row['fecha'];
                 function lafecha($fecha){
                 list($fecha,$hora)=explode(" ",$fecha);
                 list($anio,$mes,$dia)=explode("-",$fecha);
