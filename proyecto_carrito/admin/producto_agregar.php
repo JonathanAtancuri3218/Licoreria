@@ -1,13 +1,13 @@
 <?php 
 error_reporting(E_ALL ^ E_NOTICE);
 if(!isset($_SESSION))session_start();
-if(!$_SESSION[admin_id]){
+if(!$_SESSION['admin_id']){
 $_SESSION[volver]=$_SERVER['PHP_SELF']."?".$_SERVER['QUERY_STRING'];
 header("Location: index.php");
 }
 require_once('../conexion.php'); ?>
 <?php
-	if($_POST[agregarProducto] == "agregarProducto"){
+	if($_POST['agregarProducto'] == "agregarProducto"){
 		$unidad=implode(',',$_POST[unidad]);
 		$q="INSERT INTO `productos` (`id`, `nombre`, `codigo`, `categoria`, `frase_promocional`, `unidad`, `precio`, `disponibilidad`, `descripcion`, `promocion`, `fecha`) VALUES (NULL, '$_POST[nombre]', '$_POST[codigo]', '$_POST[categoria]', '$_POST[frase_promocional]', '$unidad', '$_POST[precio]', '$_POST[disponibilidad]', '$_POST[descripcion]', '$_POST[promocion]', CURRENT_TIMESTAMP)";
 		//echo($q);

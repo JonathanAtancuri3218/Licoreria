@@ -3,7 +3,7 @@ error_reporting(E_ALL ^ E_NOTICE);
 require_once('../conexion.php'); ?>
 <?php if(!isset($_SESSION))session_start();?>
 <?php
-if((isset($_POST[usuario]) && $_POST[usuario]<>"") && (isset($_POST[contrasena]) && $_POST[contrasena]<>"") ){
+if((isset($_POST['usuario']) && $_POST[usuario]<>"") && (isset($_POST[contrasena]) && $_POST[contrasena]<>"") ){
 $query="SELECT * FROM administradores WHERE usuario='$_POST[usuario]' AND contrasena='$_POST[contrasena]'";
 $resource=$conn->query($query);
 if($t=$resource->num_rows){
