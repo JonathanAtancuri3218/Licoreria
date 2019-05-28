@@ -34,7 +34,7 @@
                 <div class="col-sm-12">
                     <div class="logo">
                         <center>
-                            <h1><a href="index.php"><img src="img/portada.JPG"  class="img-responsive"></a></h1>
+                            <h1><a href="index.php"><img src="img/LogoUPS.JPG"  class="img-responsive"></a></h1>
                         </center>
                     </div>
                 </div>
