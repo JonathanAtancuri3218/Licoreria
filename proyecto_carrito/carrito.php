@@ -153,6 +153,6 @@ header("Location: login.php");
     <?php include("footer.php");?><!-- End Footer -->
     <!-- JS -->
     <?php include("js.php");?><!-- End JS -->
-    
+    <!-- hola mmundo -->
   </body>
 </html>
