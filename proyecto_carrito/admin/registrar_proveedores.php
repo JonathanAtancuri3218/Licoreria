@@ -9,8 +9,10 @@ require_once('../conexion.php'); ?>
 <?php
 	if($_POST['agregarProveedor'] == "agregarProveedor"){
         $usuario_id=$_SESSION['idUser'];
-		$q="INSERT INTO `proveedores` (`id`, `nombre`, `contacto`, `telefono`, `direccion`, `usuario_id`) VALUES (NULL, '$_POST[nombre]', '$_POST[contacto]', '$_POST[telefono]', '$_POST[direccion]', '$usuario_id')";
-		//echo($q);
+		$q="INSERT INTO `proveedores` (`id`, `nombre`, `contacto`, `telefono`, `direccion`, `date_add`, `usuario_id`, `status`) VALUES (NULL, '$_POST[nombre]', '$_POST[contacto]', '$_POST[telefono]', '$_POST[direccion]',CURRENT_TIMESTAMP, '$usuario_id','1')";
+        //echo($q);
+        
+
 		$resource=$conn->query($q);
 		header("Location: listado_proveedores.php");
 	}
@@ -25,7 +27,7 @@ require_once('../conexion.php'); ?>
 	
 		<!-- Website Font style -->
 	    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
-		<title>Ingreso de Productos</title>
+		<title>Ingreso de Proveedores</title>
 		
 		<style>
 			#success_message{ 
@@ -84,17 +86,7 @@ require_once('../conexion.php'); ?>
                         message: 'Ingrese la direccion (Mínimo 10 caracteres)'
                     }
                 }
-            },
-            precio: {
-                validators: {
-                     stringLength: {
-                        min: 1,
-                    },
-                    notEmpty: {
-                        message: 'Ingrese Precio del Producto'
-                    }
-                }
-            },              
+            },             
            }
         })
         .on('success.form.bv', function(e) {

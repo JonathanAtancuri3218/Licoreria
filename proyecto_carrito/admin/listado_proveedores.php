@@ -91,6 +91,7 @@ $total_pag = ceil($total/$max)-1;
                     <td class="col-xs-3 col-sm-3 col-md-4 col-lg-3"><?php echo $row['direccion']?></td>
                     <td class="col-xs-3 col-sm-3 col-md-4 col-lg-3"><a href="proveedor_modificar.php?id=<?php echo $row['id']?>" class="btn btn-md btn-success"><span class="glyphicon glyphicon-wrench" aria-hidden="true"></span></a></td>
                     <td class="col-xs-3 col-sm-3 col-md-4 col-lg-3"><a href="listado_proveedores.php?idElm=<?php echo $row['id']?>" class="btn btn-md btn-danger" onClick="return confirm('¿Está seguro que desea eliminar este Proveedor?')"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td>
+
                   </tr>
                   <?php }?>
                 </tbody>
