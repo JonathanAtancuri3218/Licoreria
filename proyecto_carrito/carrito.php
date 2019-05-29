@@ -16,7 +16,7 @@ header("Location: login.php");
       $r = $conn->query($q); 
       $t = $r->num_rows;
       
-    $query=" SELECT id, nombre, frase_promocional, precio, codigo, categoria FROM productos ORDER BY fecha DESC";
+    $query=" SELECT id, nombre, frase_promocional, precio, codigo, categoria ,imagen FROM productos ORDER BY fecha DESC";
       ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -73,10 +73,19 @@ header("Location: login.php");
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            
                                            <?php while ($row = $r->fetch_assoc()){?>
+                                           
+                                            <img src="<?php echo $row['imagen']?>"
+                             class="img-responsive img-thumbnail producto-tienda"
+                              alt="<?php echo $row['nombre']?>"> 
+
                                             <tr class="cart_item wow fadeIn">
-                                                <td class="product-thumbnail">
-                                                  <img width="145" height="145" alt="<?php echo $row['nombre']?>" class="shop_thumbnail" src="img/<?php echo $row['codigo']?>.jpg">
+                                                <td class="product-upper">
+                                                <img src="<?php echo $row['imagen']?>"
+
+                                                 class="img-responsive img-thumbnail producto-tienda"
+                                                      >
                                                 </td>
 
                                                 <td class="product-name">

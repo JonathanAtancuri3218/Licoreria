@@ -1,20 +1,20 @@
 <?php 
-error_reporting(E_ALL ^ E_NOTICE);
+error_reporting('E_ALL ^ E_NOTICE');
 require_once('../conexion.php'); ?>
 <?php if(!isset($_SESSION))session_start();?>
 <?php
-if((isset($_POST['usuario']) && $_POST[usuario]<>"") && (isset($_POST[contrasena]) && $_POST[contrasena]<>"") ){
+if((isset($_POST['usuario']) && $_POST['usuario']<>"") && (isset($_POST['contrasena']) && $_POST['contrasena']<>"") ){
 $query="SELECT * FROM administradores WHERE usuario='$_POST[usuario]' AND contrasena='$_POST[contrasena]'";
 $resource=$conn->query($query);
 if($t=$resource->num_rows){
 $row=$resource->fetch_assoc();
-$_SESSION[admin_id]=$row[id];
-$_SESSION[nombre]=$row[nombre];
-$_SESSION[email]=$row[email];
-$_SESSION[telefono]=$row[telefono];
-$_SESSION[pais]=$row[pais];
-$_SESSION[direccion]=$row[direccion];
-$volver=($_SESSION[volver])?$_SESSION[volver]:"	../admin/listado_productos.php";
+$_SESSION['admin_id']=$row['id'];
+$_SESSION['nombre']=$row['nombre'];
+$_SESSION['email']=$row['email'];
+$_SESSION['telefono']=$row['telefono'];
+$_SESSION['pais']=$row['pais'];
+$_SESSION['direccion']=$row['direccion'];
+$volver=($_SESSION['volver'])?$_SESSION['volver']:"	../admin/listado_productos.php";
 header("Location: ".$volver);
 } else {
 $error="Usuario/Clave no registrados";
@@ -31,8 +31,11 @@ $error="Usuario/Clave no registrados";
 	
 		<!-- Website Font style -->
 	    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+
 		<title>Ingreso Administrador | Licor Store</title>
-		
+
+		<title>Ingreso Administrador | Drinks Store</title>
+	
 		<style>
 			#success_message{ 
 				display: none;

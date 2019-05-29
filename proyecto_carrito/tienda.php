@@ -38,7 +38,7 @@ if($consulta != ""){
         $conditions[] = " (nombre LIKE '%$s%' OR descripcion LIKE '%$s%' OR frase_promocional LIKE '%$s%' ) ";
     }
 
-    $query =   "SELECT id,nombre,codigo, frase_promocional, precio FROM productos
+    $query =   "SELECT id,nombre,codigo, frase_promocional, precio,imagen FROM productos
             ";
 
     if(isset($conditions)){
@@ -144,7 +144,10 @@ $total_pag = ceil($total/$max)-1;
                 <div class="col-md-3 col-sm-6 wow fadeIn">
                     <figure class="single-shop-product">
                         <div class="product-upper">
-                            <a href="producto.php?id=<?php echo $row['id']?>"> <img src="<?php echo $row['imagen']?>" class="img-responsive img-thumbnail producto-tienda" alt="<?php echo $row['nombre']?>"></a>
+                            <a href="producto.php?id=<?php echo $row['id']?>"> 
+                            <img src="<?php echo $row['imagen']?>"
+                             class="img-responsive img-thumbnail producto-tienda"
+                              alt="<?php echo $row['nombre']?>"></a>
                         </div>
                         <h2><a href="producto.php?id=<?php echo $row['id']?>"><?php echo $row['nombre']?></a></h2>
                         <div class="product-carousel-price">

@@ -53,6 +53,7 @@ div.cart-collaterals ul.products li.product {
 }  
 .logo h1 {
   font-size: 30px;
+  width: 100%;
   margin: 20px 0;
   text-align: center;
 } 
