@@ -81,7 +81,7 @@ header("Location: login.php");
                               alt="<?php echo $row['nombre']?>"> 
 
                                             <tr class="cart_item wow fadeIn">
-                                                <td class="product-image">
+                                                <td class="product-upper">
                                                 <img src="<?php echo $row['imagen']?>"
 
                                                  class="img-responsive img-thumbnail producto-tienda"
