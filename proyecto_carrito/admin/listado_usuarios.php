@@ -62,6 +62,10 @@ $total_pag = ceil($total/$max)-1;
       </ul>
     </div>
     <div class="container">
+    <br>
+    <form method="POST" action="registrar_proveedores.php">
+    <input type="submit" class="btn btn-success" id="agregarUsuario"  name="agregarUsuario" value="Agregar Usuario" />
+ <br>
       <h2>Listado de Usuarios</h2> 
         <div class="table-responsive">
             <table class="table">
