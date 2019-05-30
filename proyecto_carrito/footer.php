@@ -5,7 +5,7 @@
                 <div class="col-md-4">
                     <div class="footer-about-us">
                         <a href="index.php"><img src="img/portada.JPG" ></a>
-                        <p>Nuestra tienda online tiene el objetivo de  llevar a su hogar un servicio  innovador en la venta de juegos,Consolas ,PC Gamer  , etc ,ofreciendo los mejores servicios para que puedas tener la mejor experiencia al momento de utilizar juegos de video.</p>
+                        <p>Objetivo comercializar y distribuir licores de calidad, tanto nacionales como importados, para satisfacer las necesidades de los consumidores, con un equipo de trabajo íntegro y comprometido.</p>
                         <div class="footer-social">
                             <a href="https://www.facebook.com/" target="_blank"><i class="fa fa-facebook"></i></a>
                             <a href="https://twitter.com/?lang=es" target="_blank"><i class="fa fa-twitter"></i></a>

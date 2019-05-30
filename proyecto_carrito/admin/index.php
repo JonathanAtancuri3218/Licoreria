@@ -31,8 +31,11 @@ $error="Usuario/Clave no registrados";
 	
 		<!-- Website Font style -->
 	    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+
+		<title>Ingreso Administrador | Licor Store</title>
+
 		<title>Ingreso Administrador | Drinks Store</title>
-		
+	
 		<style>
 			#success_message{ 
 				display: none;

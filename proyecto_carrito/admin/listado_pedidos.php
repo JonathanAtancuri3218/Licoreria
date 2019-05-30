@@ -17,7 +17,7 @@ if(isset($_GET['pag']) && $_GET['pag'] <>""){
 $pag=$_GET[pag];
 }
 $inicio=$pag * $max;
-$query="SELECT id, nombre, email, telefono, nacionalidad FROM clientes ORDER BY fecha DESC";
+$query="SELECT * FROM factura ORDER BY fecha DESC";
 $query_limit= $query ." LIMIT $inicio,$max";
 $resource = $conn->query($query_limit);
 if (isset($_GET['total'])) {
@@ -33,7 +33,7 @@ $total_pag = ceil($total/$max)-1;
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Usuarios</title>
+        <title>Pedidos</title>
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
             <!-- Font Awezome -->
@@ -66,15 +66,15 @@ $total_pag = ceil($total/$max)-1;
     <form method="POST" action="registrar_proveedores.php">
     <input type="submit" class="btn btn-success" id="agregarUsuario"  name="agregarUsuario" value="Agregar Usuario" />
  <br>
-      <h2>Listado de Usuarios</h2> 
+      <h2>Listado de Pedidos</h2> 
         <div class="table-responsive">
             <table class="table">
                 <thead>
                   <tr>
-                    <th>Nombre Usuario</th>
-                    <th>Email</th>
+                    <th>codigo</th>
+                    <th>cliente</th>
                     <th>Teléfono</th>
-                    <th>Nacionalidad</th>
+                    <th>estado del pedido</th>
                     <th>Modificar</th>
                  	<th>Eliminar</th>
                   </tr>
