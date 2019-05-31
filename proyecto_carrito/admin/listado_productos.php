@@ -62,6 +62,10 @@ $total_pag = ceil($total/$max)-1;
       </ul>
     </div>
     <div class="container">
+    <br>
+    <form method="POST" action="producto_agregar.php">
+ <input type="submit" class="btn btn-success" id="agregarProducto"  name="agregarProducto" value="Agregar Producto" />
+ <br>
       <h2>Listado de Productos</h2> 
         <div class="table-responsive">
             <table class="table">

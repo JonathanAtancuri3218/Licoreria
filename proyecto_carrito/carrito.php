@@ -3,7 +3,7 @@ error_reporting('E_ALL ^ E_NOTICE');
 require_once("conexion.php")?>
 <?php 
 if(!$_SESSION['user_id']){
-$_SESSION[volver]=$_SERVER['PHP_SELF']."?".$_SERVER['QUERY_STRING'];
+$_SESSION['volver']=$_SERVER['PHP_SELF']."?".$_SERVER['QUERY_STRING'];
 header("Location: login.php");
 }
 ?>
@@ -17,6 +17,10 @@ header("Location: login.php");
       $t = $r->num_rows;
       
     $query=" SELECT id, nombre, frase_promocional, precio, codigo, categoria ,imagen FROM productos ORDER BY fecha DESC";
+
+
+  
+
       ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -76,16 +80,17 @@ header("Location: login.php");
                                             
                                            <?php while ($row = $r->fetch_assoc()){?>
                                            
-                                            <img src="<?php echo $row['imagen']?>"
-                             class="img-responsive img-thumbnail producto-tienda"
-                              alt="<?php echo $row['nombre']?>"> 
+                                        
+
+
 
                                             <tr class="cart_item wow fadeIn">
                                                 <td class="product-upper">
-                                                <img src="<?php echo $row['imagen']?>"
+                                               <?php 
 
-                                                 class="img-responsive img-thumbnail producto-tienda"
-                                                      >
+                                               echo '<img src="data:image/jpeg;base64,' . base64_decode( $row['imagen'] ) . '" />';
+                                                 ?>
+
                                                 </td>
 
                                                 <td class="product-name">
@@ -99,7 +104,12 @@ header("Location: login.php");
 
                                                 <td class="product-quantity">
                                                     <div class="quantity buttons_added">
-                                                        <?php echo $cantidad=$row['cantidad']?>
+
+                                                        <?php 
+                                                                                                           
+                                                        echo $cantidad=$row['cantidad'] 
+                                                        ?>
+                                   
                                                     </div>
                                                 </td>
 

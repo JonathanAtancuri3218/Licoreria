@@ -6,20 +6,34 @@ $_SESSION[volver]=$_SERVER['PHP_SELF']."?".$_SERVER['QUERY_STRING'];
 header("Location: index.php");
 }
 require_once('../conexion.php'); ?>
- <?php
-if(isset($_GET['idElm'])&& $_GET[idElm]<>""){
-		$q="DELETE FROM proveedores WHERE 1 AND id='$_GET[idElm]'";
+<?php
+if(isset($_GET['idElm'])&& $_GET['idElm']<>""){
+		$q="DELETE FROM clientes WHERE 1 AND id='$_GET[idElm]'";
 		$r=$conn->query($q);
 	}
-$max=25;
+$max=5;
 $pag=0;
 if(isset($_GET['pag']) && $_GET['pag'] <>""){
 $pag=$_GET[pag];
 }
 $inicio=$pag * $max;
-$query="SELECT id, nombre, contacto, telefono, direccion FROM proveedores ORDER BY id ASC";
-$query_limit= $query ." LIMIT $inicio,$max";
-$resource = $conn->query($query_limit);
+$query="SELECT id, nombre, email, telefono, nacionalidad FROM clientes ORDER BY id ASC";
+
+$query="SELECT id, nombre, email, telefono, nacionalidad FROM clientes 
+        WHERE (id LIKE '%$busqueda%' OR
+                nombre LIKE '%$busqueda%' OR
+                email LIKE '%$busqueda%' OR
+                telefono LIKE '%$busqueda%' OR
+                nacionalidad LIKE '%$busqueda%')
+        AND estado = 1  ORDER BY id ASC)";
+
+
+
+
+
+$resource = $conn->query($query);
+$total_registro=$resource['total_registro'];
+
 if (isset($_GET['total'])) {
 $total = $_GET['total'];
 } else {
@@ -33,11 +47,15 @@ $total_pag = ceil($total/$max)-1;
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Proveedores</title>
+        <title>Usuarios</title>
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
             <!-- Font Awezome -->
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+        
+        <link href="../css/buscar.css" rel="stylesheet" type="text/css">
+
+        
         <style>
             img{
                 max-width: 40%;
@@ -52,46 +70,64 @@ $total_pag = ceil($total/$max)-1;
     <div class="container">                 
       <ul class="pager">
        <?php if($pag-1 >= 0){?>
-        <li><a href="listado_proveedores.php?pag=<?php echo $pag -1?>&total=<?php echo $total?>">Anterior</a></li>
+        <li><a href="listado_usuarios.php?pag=<?php echo $pag -1?>&total=<?php echo $total?>">Anterior</a></li>
         <?php } ?>
         | <?php echo ($inicio + 1) ?> a <?php echo min($inicio + $max, $total) ?> | de <?php echo $total ?>
         
         <?php if($pag +1 <= $total_pag ){?>
-        <li><a href="listado_proveedores.php?pag=<?php echo $pag +1?>&total=<?php echo $total?>">Siguiente</a></li>
+        <li><a href="listado_usuarios.php?pag=<?php echo $pag +1?>&total=<?php echo $total?>">Siguiente</a></li>
         <?php } ?>
       </ul>
     </div>
     <div class="container">
     <br>
-    <form method="POST" action="agregar_proveedores.php">
- <input type="submit" class="btn btn-success" id="agregarProveedor"  name="agregarProveedor" value="Agregar Proveedor" />
+    <form method="POST" action="agregar_usuarios.php">
+    <input type="submit" class="btn btn-success" id="agregarUsuario"  name="agregarUsuario" value="Agregar Usuario" />
+    </form>
+
  <br>
-      <h2>Listado de Proveedores</h2> 
+        <?php
+        $busqueda=strtolower($_REQUEST['busqueda']);
+        if(empty($busqueda)){
+          header("location:listado_usuarios.php" );
+        } 
+        ?>
+
+
+
+      <h2>Listado de Usuarios</h2> 
+
+      <form action="buscar_usuario.php" method="GET" class=form-search>
+      <input type="text" name="busqueda" id="busqueda" placeholder="Buscar " value="<?php echo $busqueda;?>">
+      <input type="submit" value="Buscar" class="btn_search">
+      </form>
+      <br>
         <div class="table-responsive">
             <table class="table">
-
                 <thead>
                   <tr>
                   <th>ID</th>
-                    <th>Nombre del Proveedor</th>
-                    <th>Contacto</th>
-                    <th>Telefono</th>
-                    <th>Direccion</th>
-                 	<th>Modificar Proveedor</th>
-                 	<th>Eliminar Proveedor</th>
+                    <th>Nombre Usuario</th>
+                    <th>Email</th>
+                    <th>Teléfono</th>
+                    <th>Nacionalidad</th>
+                    <th>Modificar</th>
+                 	<th>Eliminar</th>
                   </tr>
+
+
+            
                 </thead>
                 <tbody>
-                 <?php  while ($row = $resource->fetch_assoc()){?>
+                 <?php  
+                 
+                 while ($row = $resource->fetch_assoc($query)){?>
                   <tr>
                   <td class="col-xs-3 col-sm-3 col-md-4 col-lg-3"><?php echo $row['id']?></td>
                     <td class="col-xs-3 col-sm-3 col-md-4 col-lg-3"><?php echo $row['nombre']?></td>
-                    <td class="col-xs-3 col-sm-3 col-md-4 col-lg-3"><?php echo $row['contacto']?></td>
-                    <td class="col-xs-3 col-sm-3 col-md-4 col-lg-3"><?php echo $row['telefono']?></td>
-                    <td class="col-xs-3 col-sm-3 col-md-4 col-lg-3"><?php echo $row['direccion']?></td>
-                    <td class="col-xs-3 col-sm-3 col-md-4 col-lg-3"><a href="proveedor_modificar.php?id=<?php echo $row['id']?>" class="btn btn-md btn-success"><span class="glyphicon glyphicon-wrench" aria-hidden="true"></span></a></td>
-                    <td class="col-xs-3 col-sm-3 col-md-4 col-lg-3"><a href="listado_proveedores.php?idElm=<?php echo $row['id']?>" class="btn btn-md btn-danger" onClick="return confirm('¿Está seguro que desea eliminar este Proveedor?')"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td>
-
+                    <td class="col-xs-3 col-sm-3 col-md-4 col-lg-3"><a href="mailto:<?php echo $row['email']?>"><?php echo $row['email']?></a></td>
+                    <td class="col-xs-3 col-sm-3 col-md-4 col-lg-3"><a href="tel:<?php echo $row['telefono']?>"><?php echo $row['telefono']?></a></td>
+                    <td class="col-xs-3 col-sm-3 col-md-4 col-lg-3"><?php echo $row['nacionalidad']?></td>
                   </tr>
                   <?php }?>
                 </tbody>
@@ -116,6 +152,5 @@ $total_pag = ceil($total/$max)-1;
             $("tr:even").css("background-color", "#f7f7f7"); 
                 });
         </script>
-
 </body>
 </html>

@@ -130,7 +130,9 @@ require_once('../conexion.php'); ?>
 					  <div class="input-group">
 					  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
 					  <input  name="nombre" id="nombre" placeholder="Ingrese Nombre del proveedor" class="form-control"  type="text">
-					    </div>
+					    
+						
+						</div>
 					  </div>
 					</div>
 					
