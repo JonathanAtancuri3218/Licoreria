@@ -13,6 +13,7 @@
                     <ul class="nav navbar-nav">
                         <li><a href="index.php">Inicio</a></li>
                         <li><a href="tienda.php">Tienda </a></li>
+                        <li><a href="index.html">Contactos </a></li>
                        
                     </ul>
                 </div>  

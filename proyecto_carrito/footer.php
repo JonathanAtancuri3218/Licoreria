@@ -40,7 +40,7 @@
             <div class="row">
                 <div class="col-md-8">
                     <div class="copyright">
-                        <p>&copy; 2018 Proyecto de  Programacion Hypermedial</p>
+                        <p>&copy; 2019 Proyecto de  Programacion Hypermedial</p>
                     </div>
                 </div>
             </div>
