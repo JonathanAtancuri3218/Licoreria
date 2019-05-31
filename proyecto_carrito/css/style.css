@@ -10,6 +10,7 @@ body, a, img, input,h1,h2,h3,h4,div{
     float: left;
     margin-right: 15px;
 }
+
 .alignright {
     float: right;
     margin-left: 15px;

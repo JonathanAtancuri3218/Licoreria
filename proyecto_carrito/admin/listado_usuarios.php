@@ -17,7 +17,7 @@ if(isset($_GET['pag']) && $_GET['pag'] <>""){
 $pag=$_GET[pag];
 }
 $inicio=$pag * $max;
-$query="SELECT id, nombre, email, telefono, nacionalidad FROM clientes ORDER BY fecha DESC";
+$query="SELECT id, nombre, email, telefono, nacionalidad FROM clientes ORDER BY id ASC";
 $query_limit= $query ." LIMIT $inicio,$max";
 $resource = $conn->query($query_limit);
 if (isset($_GET['total'])) {
@@ -38,6 +38,10 @@ $total_pag = ceil($total/$max)-1;
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
             <!-- Font Awezome -->
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+        
+        <link href="../css/buscar.css" rel="stylesheet" type="text/css">
+
+        
         <style>
             img{
                 max-width: 40%;
@@ -63,14 +67,27 @@ $total_pag = ceil($total/$max)-1;
     </div>
     <div class="container">
     <br>
-    <form method="POST" action="registrar_proveedores.php">
+    <form method="POST" action="agregar_usuarios.php">
     <input type="submit" class="btn btn-success" id="agregarUsuario"  name="agregarUsuario" value="Agregar Usuario" />
+    </form>
+
  <br>
+
+
+
+
       <h2>Listado de Usuarios</h2> 
+
+      <form action="buscar_usuario.php" method="GET" class=form-search>
+      <input type="text" name="busqueda" id="busqueda" placeholder="Buscar Usuarios">
+      <input type="submit" value="Buscar" class="btn_search">
+      </form>
+      <br>
         <div class="table-responsive">
             <table class="table">
                 <thead>
                   <tr>
+                  <th>ID</th>
                     <th>Nombre Usuario</th>
                     <th>Email</th>
                     <th>Teléfono</th>
@@ -82,6 +99,7 @@ $total_pag = ceil($total/$max)-1;
                 <tbody>
                  <?php  while ($row = $resource->fetch_assoc()){?>
                   <tr>
+                  <td class="col-xs-3 col-sm-3 col-md-4 col-lg-3"><?php echo $row['id']?></td>
                     <td class="col-xs-3 col-sm-3 col-md-4 col-lg-3"><?php echo $row['nombre']?></td>
                     <td class="col-xs-3 col-sm-3 col-md-4 col-lg-3"><a href="mailto:<?php echo $row['email']?>"><?php echo $row['email']?></a></td>
                     <td class="col-xs-3 col-sm-3 col-md-4 col-lg-3"><a href="tel:<?php echo $row['telefono']?>"><?php echo $row['telefono']?></a></td>

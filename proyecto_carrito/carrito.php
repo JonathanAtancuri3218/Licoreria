@@ -104,10 +104,11 @@ $id_user=$_SESSION['user_id'];
                                        
                                             <tr class="cart_item wow fadeIn">
                                                 <td class="product-upper">
-                                                <img src="<?php echo $row['imagen']?>"
+                                               <?php 
 
-                                                 class="img-responsive img-thumbnail producto-tienda"
-                                                      >
+                                               echo '<img src="data:image/jpeg;base64,' . base64_decode( $row['imagen'] ) . '" />';
+                                                 ?>
+
                                                 </td>
 
                                                 <td class="product-name">
@@ -121,7 +122,12 @@ $id_user=$_SESSION['user_id'];
 
                                                 <td class="product-quantity">
                                                     <div class="quantity buttons_added">
-                                                        <?php echo $cantidad=$row['cantidad']?>
+
+                                                        <?php 
+                                                                                                           
+                                                        echo $cantidad=$row['cantidad'] 
+                                                        ?>
+                                   
                                                     </div>
                                                 </td>
 
