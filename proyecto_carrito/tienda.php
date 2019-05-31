@@ -16,7 +16,10 @@ if (isset($_GET["total"]) && $pag != 0) {
     $por_pagina = $por_pagina*($pag+1);
 }
 
+
+
 $consulta = (isset($_REQUEST["consulta"]))? $_REQUEST["consulta"] : "";
+
 
 if($consulta != ""){
 
@@ -77,6 +80,7 @@ $resource = $conn -> query($query);
 
 $resource_limit = $conn->query($query_limit);
 $total = $resource->num_rows;
+
 
 $total_pag = ceil($total/$max)-1;
 ?>

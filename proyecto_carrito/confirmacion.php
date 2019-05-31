@@ -8,7 +8,12 @@ header("Location: login.php");
 }
 ?>
 <?php	
-      $q="SELECT * FROM compras WHERE 1 AND cliente='$_SESSION[user_id]' ORDER BY fecha DESC";
+    $q="SELECT p.nombre as nombre , c.cantidad as cantidad, p.precio as precio FROM compras c
+        inner join productos p on p.id=c.id_producto
+    inner join factura f on f.id=c.id_factura
+where f.id_cliente=8";
+
+    //   $q="SELECT * FROM compras WHERE 1 AND cliente='$_SESSION[user_id]' ORDER BY fecha DESC";
       $r = $conn->query($q); 
       $t = $r->num_rows;
 ?>

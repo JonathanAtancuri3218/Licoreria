@@ -6,6 +6,10 @@ if((isset($_POST['usuario']) && $_POST[usuario]<>"") && (isset($_POST[contrasena
 $query="SELECT * FROM clientes WHERE usuario='$_POST[usuario]' AND contrasena='$_POST[contrasena]'";
 $resource=$conn->query($query);
 if($t=$resource->num_rows){
+  
+
+
+
 $row=$resource->fetch_assoc();
 $_SESSION[user_id]=$row[id];
 $_SESSION[nombre]=$row[nombre];
@@ -13,6 +17,12 @@ $_SESSION[email]=$row[email];
 $_SESSION[telefono]=$row[telefono];
 $_SESSION[pais]=$row[pais];
 $_SESSION[direccion]=$row[direccion];
+
+$q="INSERT INTO `factura` (`id`, `id_cliente`, `fecha`) VALUES (NULL, '$row[id]',  CURRENT_TIMESTAMP)";
+$resource=$conn->query($q);
+
+$_SESSION[fac]='1';
+
 $volver=($_SESSION[volver])?$_SESSION[volver]:"tienda.php";
 header("Location: ".$volver);
 } else {
