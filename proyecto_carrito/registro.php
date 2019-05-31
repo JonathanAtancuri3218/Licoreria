@@ -185,6 +185,14 @@ require_once('conexion.php'); ?>
 					  </div>
 					</div>
 
+					<!-- CARGAR AVATAR-->
+
+					<div class="avatar">
+            <label for="imagen">Seleccione imagen a cargar</label>
+            <input id="uploadImage1" type="file" name="image" onchange="previewImage(1)" accept="image/*" />
+            <img id="uploadPreview1" width="150" height="150" src="img/usu.PNG" />
+        </div>
+
 					
 
 					<!-- Succ -->

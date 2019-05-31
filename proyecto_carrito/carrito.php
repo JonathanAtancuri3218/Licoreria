@@ -84,6 +84,9 @@ header("Location: login.php");
 
 
 
+
+                              
+
                                             <tr class="cart_item wow fadeIn">
                                                 <td class="product-upper">
                                                <?php 

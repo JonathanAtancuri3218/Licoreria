@@ -60,7 +60,7 @@ $row = $resource->fetch_assoc();
                             <div class="col-sm-3">
                                 <div class="product-images">
                                     <div class="product-main-img">
-                                        <img src="<?php echo $row['imagen']?>" alt="<?php echo $row[nombre]?>">
+                                        <img src="<?php echo $row['imagen']?>" alt="<?php echo $row['nombre']?>">
                                     </div>
                                 </div>
                             </div>

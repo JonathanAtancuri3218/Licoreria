@@ -18,6 +18,7 @@
         <li><a href="producto_agregar.php"><i class="fa fa-cart-plus" aria-hidden="true"></i> Agregar Productos Nuevos</a></li>
         <li><a href="listado_usuarios.php"><i class="fa fa-users" aria-hidden="true"></i> Listado de Usuarios</a></li>
         <li><a href="listado_proveedores.php"><i class="fa fa-users" aria-hidden="true"></i> Listado de Proveedores</a></li>
+        <li><a href="listado_pedidos.php"><i class="fa fa-users" aria-hidden="true"></i> Listado de pedidos</li>
         <li><a href="logout.php"><i class="fa fa-sign-out" aria-hidden="true"></i> Salir</a></li>
       </ul>
     </div>
