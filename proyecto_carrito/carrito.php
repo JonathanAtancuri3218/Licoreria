@@ -3,7 +3,7 @@ error_reporting('E_ALL ^ E_NOTICE');
 require_once("conexion.php")?>
 <?php 
 if(!$_SESSION['user_id']){
-$_SESSION[volver]=$_SERVER['PHP_SELF']."?".$_SERVER['QUERY_STRING'];
+$_SESSION['volver']=$_SERVER['PHP_SELF']."?".$_SERVER['QUERY_STRING'];
 header("Location: login.php");
 }
 ?>
