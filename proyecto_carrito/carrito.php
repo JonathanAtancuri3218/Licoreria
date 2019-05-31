@@ -17,6 +17,10 @@ header("Location: login.php");
       $t = $r->num_rows;
       
     $query=" SELECT id, nombre, frase_promocional, precio, codigo, categoria ,imagen FROM productos ORDER BY fecha DESC";
+
+
+  
+
       ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -74,30 +78,22 @@ header("Location: login.php");
                                         </thead>
                                         <tbody>
                                             
+                                           <?php while ($row = $r->fetch_assoc()){?>
+                                           
+                                        
 
-                                           <?php while ($row = $r->fetch_assoc()){
-                                            $img=$row['imagen'];
-                                            $img = str_replace('data:image/png;base64,', '', $img);
-                                            $img = str_replace(' ', '+', $img);
-                                            $data = base64_decode($img);
-                                            $file = UPLOAD_DIR . uniqid() . '.png';
-                                            $success = file_put_contents($file, $data);
-                                            print $success ? $file : 'Unable to save the file.';                           
-                                            ?>
 
-                                            <img src='$data'
-                             class="img-responsive img-thumbnail producto-tienda"
-                              alt="<?php echo $row['nombre']?>"> 
 
 
                               
 
                                             <tr class="cart_item wow fadeIn">
                                                 <td class="product-upper">
-                                                <img src="<?php echo $row['imagen']?>"
+                                               <?php 
 
-                                                 class="img-responsive img-thumbnail producto-tienda"
-                                                      >
+                                               echo '<img src="data:image/jpeg;base64,' . base64_decode( $row['imagen'] ) . '" />';
+                                                 ?>
+
                                                 </td>
 
                                                 <td class="product-name">
@@ -111,7 +107,12 @@ header("Location: login.php");
 
                                                 <td class="product-quantity">
                                                     <div class="quantity buttons_added">
-                                                        <?php echo $cantidad=$row['cantidad']?>
+
+                                                        <?php 
+                                                                                                           
+                                                        echo $cantidad=$row['cantidad'] 
+                                                        ?>
+                                   
                                                     </div>
                                                 </td>
 

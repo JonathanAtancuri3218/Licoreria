@@ -8,9 +8,18 @@ header("Location: index.php");
 require_once('../conexion.php'); ?>
 <?php
 	if($_POST['agregarProducto'] == "agregarProducto"){
-		$unidad=implode(',',$_POST[unidad]);
-		$q="INSERT INTO `productos` (`id`, `nombre`, `codigo`, `categoria`, `frase_promocional`, `unidad`, `precio`, `disponibilidad`, `descripcion`, `promocion`, `fecha`) VALUES (NULL, '$_POST[nombre]', '$_POST[codigo]', '$_POST[categoria]', '$_POST[frase_promocional]', '$unidad', '$_POST[precio]', '$_POST[disponibilidad]', '$_POST[descripcion]', '$_POST[promocion]', CURRENT_TIMESTAMP)";
+		$unidad=$_POST[Unidad];
+	
+		$q="INSERT INTO `productos` (`id`, `nombre`, `codigo`, `categoria`, `proveedor`,`frase_promocional`, `unidad`, `precio`, `disponibilidad`, `descripcion`, `promocion`, `fecha`)
+		 VALUES (NULL, '$_POST[nombre]', '$_POST[id]', '$_POST[categoria]','$_POST[id]', '$_POST[frase_promocional]', '$unidad', '$_POST[precio]', '$_POST[disponibilidad]', '$_POST[descripcion]', '$_POST[promocion]', CURRENT_TIMESTAMP)";
 		//echo($q);
+
+		// INSERT INTO `productos` (`id`, `nombre`, `codigo`, `categoria`, `proveedor`, `frase_promocional`, `unidad`, `precio`, `disponibilidad`, `descripcion`, `promocion`, `fecha`, `imagen`, `imagenes`)
+		//  VALUES (NULL, 'FSXCF', '202', 'SASA', '200', 'ASD', 'Unid', '2.50', '1', 'HOLA', '', CURRENT_TIMESTAMP, '', '');
+
+
+
+
 		$resource=$conn->query($q);
 		header("Location: listado_productos.php");
 	}
@@ -55,43 +64,51 @@ require_once('../conexion.php'); ?>
                     }
                 }
             },
+			proveedor: {
+                validators: {
+                     stringLength: {
+                    },
+                    notEmpty: {
+                        message: 'Selecione algun proveedor'
+                    }
+                }
+            },
 			 codigo: {
                 validators: {
                      stringLength: {
-                        min: 6,
+                        min: 1,
                     },
                     notEmpty: {
-                        message: 'Ingrese Codigo del Producto (Mínimo 6 caracteres)'
+                        message: 'Ingrese Codigo del Producto (Mínimo 1 caracteres)'
                     }
                 }
             },
 			 categoria: {
                 validators: {
                      stringLength: {
-                        min: 5,
+                        
                     },
                     notEmpty: {
-                        message: 'Ingrese la cetegoría del Producto'
+                        message: 'Selecione alguna categoria'
                     }
                 }
             },
 			disponibilidad: {
                 validators: {
                      stringLength: {
-                        min: 1,
                     },
                     notEmpty: {
-                        message: 'Ingrese la cetegoría del Producto'
+                        message: 'Seleccione alguna opcion'
                     }
                 }
             },
 			frase_promocional: {
                 validators: {
                      stringLength: {
-                        min: 20,
+                        min: 10,
                     },
                     notEmpty: {
-                        message: 'Ingrese Frase Promocional (Mínimo 20 caracteres)'
+                        message: 'Ingrese Frase Promocional (Mínimo 10 caracteres)'
                     }
                 }
             },
@@ -101,7 +118,7 @@ require_once('../conexion.php'); ?>
                         min: 20,
                     },
                     notEmpty: {
-                        message: 'Ingrese Descripción Del Producto (Mínimo 20 caracteres)'
+                        message: 'Ingrese Descripción Del Producto (Mínimo 10 caracteres)'
                     }
                 }
             },
@@ -156,20 +173,59 @@ require_once('../conexion.php'); ?>
 
 					<!-- Nombre de Formulario -->
 					<legend><center><h2><b>Mantenedor de Productos</b></h2></center></legend><br>
-
-					<!-- Nombre input-->
-
-					<div class="form-group">
-					  <label class="col-md-4 control-label">Nombre</label>  
-					  <div class="col-md-4 inputGroupContainer">
-					  <div class="input-group">
-					  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-					  <input  name="nombre" id="nombre" placeholder="Ingrese Nombre de Producto" class="form-control"  type="text">
-					    </div>
-					  </div>
-					</div>
+                    
 					
-					<!-- Email input-->
+					<!-- Nombre input-->
+                        <div class="form-group">
+							  <label class="col-md-4 control-label">Nombre</label>  
+							    <div class="col-md-4 inputGroupContainer">
+							    <div class="input-group">
+							        <span class="input-group-addon"><i class="glyphicon glyphicon-barcode"></i></span>
+							  		<input name="nombre" id="nombre" placeholder="Ingrese el Nombre" class="form-control"  type="text" style="text-transform: uppercase">
+							    </div>
+							  </div>
+							</div>
+
+
+
+					<!-- Proveedor input-->
+					<div class="form-group">
+					<label class="col-md-4 control-label">PROVEEDOR</label>
+					<div class="col-md-4 inputGroupContainer">
+					<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+
+					
+
+          <?php
+  
+             $sql=mysqli_query($conn,"SELECT id , nombre from proveedores");
+          //echo($q);
+         // mysqli_close($conn);
+          $resource=mysqli_num_rows($sql);                  
+
+
+       ?>
+       <select name="id" id="id" class="form-control selectpicker">
+	   <option value=" " >Seleccione un proveedor</option>
+       <?php
+       if($resource > 0){
+	    while($proveedor=mysqli_fetch_array($sql)){
+		  
+        ?>
+
+  <option value="<?php echo $proveedor["id"];?>"><?php echo $proveedor["id"] ?> <?php echo $proveedor["nombre"];?></option>
+<?php
+	  }
+	}
+
+?>
+</select>	
+</div>
+</div>
+</div>	
+			
+					<!-- Codigo input-->
 					      	<div class="form-group">
 							  <label class="col-md-4 control-label">Código</label>  
 							    <div class="col-md-4 inputGroupContainer">
@@ -180,25 +236,44 @@ require_once('../conexion.php'); ?>
 							  </div>
 							</div>
 
+
+									
+
 					<!-- Categoría input-->
 					       
-					<div class="form-group"> 
-					 	<label class="col-md-4 control-label">Categorías</label>
-							<div class="col-md-4 selectContainer">
-								<div class="input-group">
-									<span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
-									<select name="categoria" id="categoria" class="form-control selectpicker" >
-										<option value=" " >Seleccione una categoria</option>
-									 	<option value="Frutas">Consolas</option>
-									 	<option value="Legumbres">Figuras</option>
-									 	<option value="Congelados">Juegos</option>
-									 	<option value="Coctel">Pc Gamer</option>
-									 	
-									</select>
-								</div>
-							</div>
-					</div>
+					<div class="form-group">
+					<label class="col-md-4 control-label">Categoría</label>
+					<div class="col-md-4 inputGroupContainer">
+					<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
 
+					
+
+          <?php
+  
+             $sql2=mysqli_query($conn,"SELECT id, categoria from productos");
+          //echo($q);
+          mysqli_close($conn);
+          $resource2=mysqli_num_rows($sql2);                  
+       ?>
+       <select name="categoria" id="categoria" class="form-control selectpicker">
+	   <option value=" " >Seleccione una categoria</option>
+       <?php
+       if($resource2 > 0){
+	    while($categoria=mysqli_fetch_array($sql2)){
+        ?>
+
+  <option value="<?php echo $categoria["categoria"];?>"><?php echo $categoria["categoria"] ?> <?php echo $categoria["id"];?></option>
+<?php
+	  }
+	}
+
+?>
+</select>	
+</div>
+</div>
+</div>	
+			
 					<!-- Frase Promocional -->
 					       	      
 					<div class="form-group">
@@ -219,7 +294,7 @@ require_once('../conexion.php'); ?>
 									<span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
 									<select name="unidad[]" id="colores" class="form-control selectpicker" >
 										<option value=" " >Seleccione Unidad de Medida</option>
-									 	<option value="Unidad">Unidad</option>
+									 	<option value="Unidad">Unid</option>
 								
 									</select>
 								</div>
