@@ -3,7 +3,7 @@ error_reporting('E_ALL ^ E_NOTICE');
 require_once("conexion.php")?>
 <?php 
 if(!$_SESSION['user_id']){
-$_SESSION[volver]=$_SERVER['PHP_SELF']."?".$_SERVER['QUERY_STRING'];
+$_SESSION['volver']=$_SERVER['PHP_SELF']."?".$_SERVER['QUERY_STRING'];
 header("Location: login.php");
 }
 ?>
@@ -74,11 +74,23 @@ header("Location: login.php");
                                         </thead>
                                         <tbody>
                                             
-                                           <?php while ($row = $r->fetch_assoc()){?>
-                                           
-                                            <img src="<?php echo $row['imagen']?>"
+
+                                           <?php while ($row = $r->fetch_assoc()){
+                                            $img=$row['imagen'];
+                                            $img = str_replace('data:image/png;base64,', '', $img);
+                                            $img = str_replace(' ', '+', $img);
+                                            $data = base64_decode($img);
+                                            $file = UPLOAD_DIR . uniqid() . '.png';
+                                            $success = file_put_contents($file, $data);
+                                            print $success ? $file : 'Unable to save the file.';                           
+                                            ?>
+
+                                            <img src='$data'
                              class="img-responsive img-thumbnail producto-tienda"
                               alt="<?php echo $row['nombre']?>"> 
+
+
+                              
 
                                             <tr class="cart_item wow fadeIn">
                                                 <td class="product-upper">
