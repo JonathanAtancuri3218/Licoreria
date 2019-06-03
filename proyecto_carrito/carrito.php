@@ -8,40 +8,19 @@ header("Location: login.php");
 }
 ?>
 <?php	
-$id_user=$_SESSION['user_id'];
 	if(isset($_GET['idElm'])&& $_GET['idElm']<>""){
 		$q="DELETE FROM compras WHERE 1 AND id='$_GET[idElm]'";
 		$r=$conn->query($q);
-    }
-    
-    if($_POST['confirmar'] == "confirmar"){
-		//print_r($_POST);
-		// $q="INSERT INTO `compras` (`id`, `cantidad`, `fecha`, `id_factura`, `id_producto`) VALUES (NULL, '$_POST[cantidad]', CURRENT_TIMESTAMP,'$_SESSION[factura]','$_POST[id]')";
-
-        $qc="UPDATE `factura` SET `subtotal` = '$_POST[subtotal]', `iva` = '$_POST[iva]', `total` = '$_POST[total]', `estado_pedido` = 'preparando'
-         WHERE `factura`.`id` = '$_POST[factura]';";
-
-        $rc=$conn->query($qc);
-        
-
-      echo $_POST[subtotal]." iva ".$_POST[iva]." total ".$_POST[total]. "id fac ".$_POST[factura]  ;
-      
-		header("Location: confirmacion.php");
 	}
-    $query1="SELECT * FROM factura where id_cliente='$_SESSION[user_id]' order by fecha desc";
-    $resource1=$conn->query($query1);
-    
-      $row1=$resource1->fetch_assoc();
-
-    //   $q="SELECT * FROM compras WHERE 1 AND cliente='$_SESSION[user_id]' ORDER BY fecha DESC";
-    $q=" SELECT  p.nombre as nombre,  c.cantidad as cantidad,  p.precio as precio FROM compras c
-    inner join productos p on p.id=c.id_producto
-    inner join factura f on f.id=c.id_factura
-    where f.id_cliente='$id_user'order by cantidad desc";
+      $q="SELECT * FROM compras WHERE 1 AND cliente='$_SESSION[user_id]' ORDER BY fecha DESC";
       $r = $conn->query($q); 
       $t = $r->num_rows;
       
-    // $query=" SELECT id, nombre, frase_promocional, precio, codigo, categoria ,imagen FROM productos ORDER BY fecha DESC";
+    $query=" SELECT id, nombre, frase_promocional, precio, codigo, categoria ,imagen FROM productos ORDER BY fecha DESC";
+
+
+  
+
       ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -101,12 +80,19 @@ $id_user=$_SESSION['user_id'];
                                             
                                            <?php while ($row = $r->fetch_assoc()){?>
                                            
-                                       
+
+                              
                                             <tr class="cart_item wow fadeIn">
                                                 <td class="product-upper">
                                                <?php 
 
-                                               echo '<img src="data:image/jpeg;base64,' . base64_decode( $row['imagen'] ) . '" />';
+                                               //echo '<img src="data:image/jpeg;base64,' . base64_decode( $row['imagen'] ) . '" />';
+                                               
+                                               
+                                               echo '<img src="'.$row['imagen'].'" width="200px" height="200px">';
+
+                                               //echo '<img src="'.$imgData['usu_img'].'" width="200px" height="200px">'; 
+
                                                  ?>
 
                                                 </td>
@@ -156,37 +142,23 @@ $id_user=$_SESSION['user_id'];
 
     
                                             <tr>
-                                            <?php 
-                                            
-                                                $subtotalf = number_format($subtotal=($subtotal+$envio)-$descuento, 0, ',', '.');
-                                                ?>
                                                 <td>Subtotal</td>
-                                                <td>$<?php echo $subtotalf; ?></td>
+                                                <td>$<?php echo number_format($subtotal=($subtotal+$envio)-$descuento, 0, ',', '.');?></td>
                                             </tr>
                                             <tr>
-                                            <?php 
-                                                $ivaf = number_format($iva = $subtotal*0.12, 0, ',', '.');
-                                                ?>
                                                 <td>iva 12%</td>
-                                                <td>$<?php echo $ivaf ;?></td>
+                                                <td>$<?php echo number_format($iva = $subtotal*0.12, 0, ',', '.');?></td>
                                             </tr>
 
                                             <tr class="order-total">
                                                 <th>Total Pedido</th>
-                                                <?php 
-                                                $totalf = number_format($total = $subtotal+$iva, 0, ',', '.');
-                                                ?>
-                                                <td><strong><span  class="amount">$<?php echo $totalf;?></span></strong> </td>
+                                                <td><strong><span class="amount">$<?php echo number_format($total = $subtotal+$iva, 0, ',', '.');?></span></strong> </td>
                                             </tr>
                                             <tr>
                                                 <td>Confirme Su Compra</td>
                                                 <td>
-                                                    <form id="confirmar" name="confirmar"method="post" action="">
-                                                        <input type="submit" name="confirmar" id="confirmar" value="confirmar" class="btn btn-success">
-                                                        <input type="hidden" name="factura" id="factura" value="<?php echo $row1['id']?>"> 
-                                                        <input type="hidden" name="subtotal" id="subtotal" value="<?php echo $subtotalf?>"> 
-                                                        <input type="hidden" name="iva" id="iva" value="<?php echo $ivaf?>"> 
-                                                        <input type="hidden" name="total" id="total" value="<?php echo $totalf?>"> 
+                                                    <form id="form1" method="post" action="confirmacion.php">
+                                                        <input type="submit" name="button" id="button" value="comprar" class="btn btn-success">
                                                     </form>
                                                 </td>
                                             </tr>

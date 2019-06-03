@@ -17,7 +17,9 @@ if(isset($_GET['pag']) && $_GET['pag'] <>""){
 $pag=$_GET[pag];
 }
 $inicio=$pag * $max;
-$query="SELECT id, nombre, email, telefono, nacionalidad FROM clientes ORDER BY id ASC";
+$query="SELECT id, nombre, email, telefono, nacionalidad FROM clientes where 
+estado = 1  ORDER BY id ASC";
+
 $query_limit= $query ." LIMIT $inicio,$max";
 $resource = $conn->query($query_limit);
 if (isset($_GET['total'])) {
@@ -79,8 +81,8 @@ $total_pag = ceil($total/$max)-1;
       <h2>Listado de Usuarios</h2> 
 
       <form action="buscar_usuario.php" method="GET" class=form-search>
-      <input type="text" name="busqueda" id="busqueda" placeholder="Buscar Usuarios">
-      <input type="submit" value="Buscar" class="btn_search">
+      <input type="text" name="busqueda" id="busqueda" placeholder="Buscar" >
+      <input type="submit" value="Buscar" class="btn_search" name="busqueda" >
       </form>
       <br>
         <div class="table-responsive">

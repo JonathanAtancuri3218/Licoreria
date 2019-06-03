@@ -2,7 +2,7 @@
 error_reporting(E_ALL ^ E_NOTICE);
 if(!isset($_SESSION))session_start();
 if(!$_SESSION['admin_id']){
-$_SESSION[volver]=$_SERVER['PHP_SELF']."?".$_SERVER['QUERY_STRING'];
+$_SESSION['volver']=$_SERVER['PHP_SELF']."?".$_SERVER['QUERY_STRING'];
 header("Location: index.php");
 }
 require_once('../conexion.php'); ?>
@@ -14,33 +14,19 @@ if(isset($_GET['idElm'])&& $_GET['idElm']<>""){
 $max=5;
 $pag=0;
 if(isset($_GET['pag']) && $_GET['pag'] <>""){
-$pag=$_GET[pag];
+$pag=$_GET['pag'];
 }
-$inicio=$pag * $max;
-$query="SELECT id, nombre, email, telefono, nacionalidad FROM clientes ORDER BY id ASC";
 
-$query="SELECT id, nombre, email, telefono, nacionalidad FROM clientes 
+$query=mysqli_query($conn,"SELECT id,nombre,email,telefono,nacionalidad FROM clientes 
         WHERE (id LIKE '%$busqueda%' OR
                 nombre LIKE '%$busqueda%' OR
                 email LIKE '%$busqueda%' OR
                 telefono LIKE '%$busqueda%' OR
                 nacionalidad LIKE '%$busqueda%')
-        AND estado = 1  ORDER BY id ASC)";
+        AND estado = 1  ORDER BY id ASC");
+$resultado = mysqli_fetch_array($query);
 
-
-
-
-
-$resource = $conn->query($query);
-$total_registro=$resource['total_registro'];
-
-if (isset($_GET['total'])) {
-$total = $_GET['total'];
-} else {
-$resource_total = $conn -> query($query);
-$total = $resource_total->num_rows;
-}
-$total_pag = ceil($total/$max)-1;
+ 
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -69,14 +55,7 @@ $total_pag = ceil($total/$max)-1;
     ?>
     <div class="container">                 
       <ul class="pager">
-       <?php if($pag-1 >= 0){?>
-        <li><a href="listado_usuarios.php?pag=<?php echo $pag -1?>&total=<?php echo $total?>">Anterior</a></li>
-        <?php } ?>
-        | <?php echo ($inicio + 1) ?> a <?php echo min($inicio + $max, $total) ?> | de <?php echo $total ?>
-        
-        <?php if($pag +1 <= $total_pag ){?>
-        <li><a href="listado_usuarios.php?pag=<?php echo $pag +1?>&total=<?php echo $total?>">Siguiente</a></li>
-        <?php } ?>
+       
       </ul>
     </div>
     <div class="container">
@@ -97,8 +76,8 @@ $total_pag = ceil($total/$max)-1;
 
       <h2>Listado de Usuarios</h2> 
 
-      <form action="buscar_usuario.php" method="GET" class=form-search>
-      <input type="text" name="busqueda" id="busqueda" placeholder="Buscar " value="<?php echo $busqueda;?>">
+      <form action="buscar_usuario.php" method="get" class=form-search>
+      <input type="text" name="busqueda" id="busqueda" placeholder="Buscar" value="<?php echo $busqueda;?>">
       <input type="submit" value="Buscar" class="btn_search">
       </form>
       <br>
@@ -113,25 +92,27 @@ $total_pag = ceil($total/$max)-1;
                     <th>Nacionalidad</th>
                     <th>Modificar</th>
                  	<th>Eliminar</th>
-                  </tr>
-
-
-            
+                  </tr>   
                 </thead>
                 <tbody>
                  <?php  
-                 
-                 while ($row = $resource->fetch_assoc($query)){?>
+                 $result=mysqli_nums_rows($query);
+                 while ($row = mysqli_fetch_array($query)){?>
                   <tr>
                   <td class="col-xs-3 col-sm-3 col-md-4 col-lg-3"><?php echo $row['id']?></td>
                     <td class="col-xs-3 col-sm-3 col-md-4 col-lg-3"><?php echo $row['nombre']?></td>
                     <td class="col-xs-3 col-sm-3 col-md-4 col-lg-3"><a href="mailto:<?php echo $row['email']?>"><?php echo $row['email']?></a></td>
                     <td class="col-xs-3 col-sm-3 col-md-4 col-lg-3"><a href="tel:<?php echo $row['telefono']?>"><?php echo $row['telefono']?></a></td>
                     <td class="col-xs-3 col-sm-3 col-md-4 col-lg-3"><?php echo $row['nacionalidad']?></td>
+                    <td class="col-xs-3 col-sm-3 col-md-4 col-lg-3"><a href="usuarios_modificar.php?id=<?php echo $row['id']?>" class="btn btn-md btn-success"><span class="glyphicon glyphicon-wrench" aria-hidden="true"></span></a></td>
+                    <td class="col-xs-3 col-sm-3 col-md-4 col-lg-3"><a href="listado_usuarios.php?idElm=<?php echo $row['id']?>" class="btn btn-md btn-danger" onClick="return confirm('¿Está seguro que desea eliminar este Usuario?')"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td>
                   </tr>
-                  <?php }?>
+
+
+                  <?php } ?>
                 </tbody>
-            </table>      
+            </table>    
+
         </div>
       
     </div>
