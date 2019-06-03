@@ -2,50 +2,51 @@
 error_reporting(E_ALL ^ E_NOTICE);
 require_once('conexion.php'); ?>
 <?php
+$id_factura=(int)$_SESSION['factura'];
+echo $id_factura;
 
-	if($_POST['comprar'] == "Comprar"){
+// echo $id_factura;
+
+if($_POST['comprar'] == "Comprar"){
 		//print_r($_POST);
 		// $q="INSERT INTO `compras` (`id`, `cantidad`, `fecha`, `id_factura`, `id_producto`) VALUES (NULL, '$_POST[cantidad]', CURRENT_TIMESTAMP,'$_SESSION[factura]','$_POST[id]')";
 
         $qc="SELECT  c.id, c.cantidad, c.id_producto FROM factura f
         inner join
         compras c
-        where f.id='$_POST[factura]';";
+        where f.id='$id_factura';";
+
+
 
         $rc=$conn->query($qc);
         while($rowc = $rc->fetch_assoc()){
-            
-           
-
             $id_pro_base = (int) $rowc["id_producto"];
             $can_base =(int) $rowc["cantidad"];
             $can    = (int) $_POST["cantidad"];
             $id_pro = (int) $_POST["id"];
-
-
         
-            if( $id_pro_base == $id_pro){
-                $total=$can+$can_base;
-                
-              $q="UPDATE `compras` SET `cantidad` = '$total' where id_producto='$id_pro'";
-             
-              break; 
+                  if( $id_pro_base == $id_pro){   
+                                 $total=$can+$can_base;
+                    
+                                       $q="UPDATE `compras` SET `cantidad` = '$total' where id_producto='$id_pro'and id_factura='$id_factura";
+                                     //   UPDATE `compras` SET `cantidad` = '2' where id_producto='12'and id_factura='225';
+                                   
         
-            }else{
+                        }else{
             
             $q="INSERT INTO `compras` (`id`, `cantidad`, `fecha`, `id_factura`, `id_producto`) 
-            VALUES (NULL,'$_POST[cantidad]', CURRENT_TIMESTAMP,'$_POST[factura]','$_POST[id]')";
+            VALUES (NULL,'$_POST[cantidad]', CURRENT_TIMESTAMP,'$id_factura','$_POST[id]')";
         
-            
+     
             }
 
             
             } 
-       
-         
-        
+    // echo $q;
+        // exit
         //print_r($q);
      $resource=$conn->query($q);
+     
       
 		header("Location: carrito.php");
 	}
@@ -60,10 +61,14 @@ $total = $resource->num_rows;
 $row = $resource->fetch_assoc();
 
 
-$query1="SELECT * FROM factura where id_cliente='$_SESSION[user_id]' order by fecha desc";
-$resource1=$conn->query($query1);
+// $query1="SELECT * FROM factura where id_cliente='$_SESSION[user_id]' order by fecha desc";
+// $resource1=$conn->query($query1);
 
-  $row1=$resource1->fetch_assoc();
+//   $row1=$resource1->fetch_assoc();
+
+//   echo  $row1['id'];
+ 
+
 
 ?>
 <!DOCTYPE html>
@@ -131,7 +136,7 @@ $resource1=$conn->query($query1);
                                             <input type="hidden" name="nombre" id="nombre" value="<?php echo $row['nombre']?>">
                                             <input type="hidden" name="precio" id="precio" value="<?php echo $row['precio']?>">
                                             <input type="hidden" name="cliente" id="cliente" value="<?php echo $_SESSION['user_id']?>">
-                                            <input type="hidden" name="factura" id="factura" value="<?php echo $row1['id']?>"> 
+                                            <!-- <input type="hidden" name="factura" id="factura" value="<?php echo $row1['id']?>">  -->
                                             
 
                                         </div>

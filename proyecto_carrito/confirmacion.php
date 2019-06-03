@@ -8,14 +8,27 @@ header("Location: login.php");
 }
 ?>
 <?php	
+$id_usuario=(int)$_SESSION['user_id'];
+$id_factura=(int)$_SESSION['factura'];
+
     $q="SELECT p.nombre as nombre , c.cantidad as cantidad, p.precio as precio FROM compras c
         inner join productos p on p.id=c.id_producto
     inner join factura f on f.id=c.id_factura
-where f.id_cliente=8";
+where f.id_cliente=$id_usuario and f.id ='$id_factura'" ;
 
     //   $q="SELECT * FROM compras WHERE 1 AND cliente='$_SESSION[user_id]' ORDER BY fecha DESC";
       $r = $conn->query($q); 
       $t = $r->num_rows;
+
+       $q="INSERT INTO `factura` (`id`, `id_cliente`, `fecha`) VALUES (NULL, '$id_usuario',  CURRENT_TIMESTAMP)";
+      $resource=$conn->query($q);
+      
+      $qu="SELECT * from factura where id_cliente='$id_usuario'and estado_pedido = ''";
+      $res=$conn->query($qu);
+      $row3=$res->fetch_assoc();
+      $cod_factura=(int)$row3[id];
+      $_SESSION[factura]=(int)$cod_factura;
+
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -127,6 +140,9 @@ where f.id_cliente=8";
         </div>
     </div>
     <!-- Footer -->
+    <?php
+     
+    ?>
     <?php include("footer.php");?><!-- End Footer -->   
     <!-- JS -->
     <?php include("js.php");?><!-- End JS -->
