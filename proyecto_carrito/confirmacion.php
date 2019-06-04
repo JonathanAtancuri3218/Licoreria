@@ -48,11 +48,19 @@ inner join factura f on f.id=c.id_factura
 inner join clientes cl on f.id_cliente = cl.id
 where f.id_cliente='$id_usuario' and f.id ='$factura_vista'";
 
+$q1=" SELECT  nombre,ubicacion,direccion from sucursales";
+
 
    $r = $conn->query($q); 
    $t = $r->num_rows;
    
    $ro = $r->fetch_assoc();
+
+   $r1=$conn->query($q1);
+   $t1=$r1->num_rows;
+   $ro1 = $r1->fetch_assoc();
+
+
 
 
 
@@ -123,11 +131,16 @@ where f.id_cliente='$id_usuario' and f.id ='$factura_vista'";
                     <div class="col-md-6"> 
                         <div class="product-bit-title text-right">
                         
+                        
+                                            
                           <address>
-                           <strong class="">local Principal</strong><br class="">
-                           <strong class="">Direccion: </strong> Carrer Ciutadella nº 26 A<br class="">
+                           <strong class="">local Principal:</strong><?php echo $ro1['nombre']?><br class="">
+                           <?php $usuario=$_GET["usuario"]; ?>
+                           <br >
+                           <strong class="">Direcion: </strong> <?php echo $ro1['direccion']?><br class="">
+                           <br >
                            <strong class="">Calle: </strong> 07008 Palma<br class="">
-                           <strong class="">Ciudad: </strong> Cuenca-Ecuador<br class="">                          
+                           <strong class="">Ciudad: </strong> <?php echo $ro1['ubicacion']?><br class="">                          
                            </address>
                            
                     </div>

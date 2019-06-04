@@ -4,8 +4,12 @@ require_once('conexion.php'); ?>
 <?php	
 	if($_POST['registro'] == "registro"){
 		//print_r($_POST);
-		$q="INSERT INTO `clientes` (`id`, `nombre`, `email`, `telefono`, `nacionalidad`, `direccion`, `numero`, `comuna`, `usuario`, `contrasena`, `fecha`) VALUES (NULL, '$_POST[nombre]', '$_POST[email]', '$_POST[telefono]', '$_POST[nacionalidad]', '$_POST[direccion]', '$_POST[numero]', '$_POST[comuna]', '$_POST[usuario]', '$_POST[contrasena]', CURRENT_TIMESTAMP)";
+	
+
+		$q="INSERT INTO `clientes` (`id`, `nombre`, `email`, `telefono`, `nacionalidad`, `direccion`, `numero`, `comuna`, `usuario`, `contrasena`, `fecha`,`estado`) VALUES (NULL, '$_POST[nombre]', '$_POST[email]', '$_POST[telefono]', '$_POST[nacionalidad]', '$_POST[direccion]', '$_POST[numero]', '$_POST[comuna]', '$_POST[usuario]', '$_POST[contrasena]', CURRENT_TIMESTAMP,'1')";
 		//print_r($q);
+
+
 		$resource=$conn->query($q);
 		
 		$cuerpo="Felicitaciones Don/ña ".$row['nombre'].", Ya puede iniciar sesión, sus Datos Registrados Son:
@@ -186,12 +190,6 @@ require_once('conexion.php'); ?>
 					</div>
 
 					<!-- CARGAR AVATAR-->
-
-					<div class="avatar">
-            <label for="imagen">Seleccione imagen a cargar</label>
-            <input id="uploadImage1" type="file" name="image" onchange="previewImage(1)" accept="image/*" />
-            <img id="uploadPreview1" width="150" height="150" src="img/usu.PNG" />
-        </div>
 
 					
 

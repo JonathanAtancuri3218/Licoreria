@@ -17,8 +17,11 @@ if(isset($_GET['pag']) && $_GET['pag'] <>""){
 $pag=$_GET['pag'];
 }
 $inicio=$pag * $max;
-$query="SELECT id, nombre, frase_promocional, precio, codigo, categoria,proveedor, unidad, disponibilidad, descripcion, promocion FROM productos
-        WHERE disponibilidad=1 ORDER BY fecha DESC";
+$query="SELECT p.id ,p.nombre,p.codigo,p.categoria,pr.nombre as proveedor,p.unidad,p.precio,p.disponibilidad,p.promocion FROM productos p
+INNER JOIN proveedores pr  WHERE p.proveedor = pr.id";
+
+
+
 $query_limit= $query ." LIMIT $inicio,$max";
 $resource = $conn->query($query_limit);
 if (isset($_GET['total'])) {

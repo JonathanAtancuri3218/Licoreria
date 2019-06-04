@@ -18,6 +18,7 @@
         <li><a href="listado_usuarios.php"><i class="fa fa-users" aria-hidden="true"></i> Listado de Usuarios</a></li>
         <li><a href="listado_proveedores.php"><i class="fa fa-users" aria-hidden="true"></i> Listado de Proveedores</a></li>
         <li><a href="listado_ventas.php"><i class="fa fa-users" aria-hidden="true"></i>Ventas</li>
+        <li><a href="listado_sucursales.php"><i class="fa fa-users" aria-hidden="true"></i>Sucursales</li>
         <li><a href="logout.php"><i class="fa fa-sign-out" aria-hidden="true"></i> Salir</a></li>
       </ul>
     </div>
