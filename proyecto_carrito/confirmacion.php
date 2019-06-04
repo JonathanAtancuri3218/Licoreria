@@ -25,8 +25,8 @@ if ($factura_vista == ''){
   $qu="SELECT * from factura where id_cliente='$id_usuario'and estado_pedido = ''";
   $res=$conn->query($qu);
   $row3=$res->fetch_assoc();
-  $cod_factura=(int)$row3[id];
-  $_SESSION[factura]=(int)$cod_factura;
+  $cod_factura=(int)$row3['id'];
+  $_SESSION['factura']=(int)$cod_factura;
 
   $q= " SELECT cl.id as id, cl.nombre as nombre , f.fecha as fecha, cl.email as email, cl.telefono as telefono, cl.direccion as direccion, p.nombre as producto , c.cantidad as cantidad, p.precio as precio FROM compras c
   inner join productos p on p.id=c.id_producto
