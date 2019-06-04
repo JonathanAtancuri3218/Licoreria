@@ -18,7 +18,7 @@ if(isset($_GET['pag']) && $_GET['pag'] <>""){
 $pag=$_GET['pag'];
 }
 $inicio=$pag * $max;
-$sql="SELECT f.id ,c.nombre, f.fecha ,f.total, f.estado_pedido FROM factura f
+$sql="SELECT f.id ,c.nombre, f.fecha ,f.total, f.estado_pedido, f.id_cliente FROM factura f
 INNER JOIN clientes c  WHERE f.id_cliente = c.id and f.estado_pedido != ''"; 
 
 
@@ -105,7 +105,11 @@ $resultado = $conn->query($sql);
                     <td class="col-xs-3 col-sm-3 col-md-4 col-lg-3"><?php echo $row['total']?></td>
                     <td class="col-xs-3 col-sm-3 col-md-4 col-lg-3"><?php echo $row['estado_pedido']?></td>
                     <td>
-                    <a href="listado_facturas.php?id=<?php echo $row['id']?>"  class="btn btn-info"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a>
+                    <a href="listado_facturas.php?idElm=<?php echo $row['id']?>"  class="btn btn-info"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a>
+                    <!-- echo " <td> <a href='leer.php?campo=destinatario&fecha=" . $row['men_fecha'] ."&asunto=" . $row['men_asunto'] . " -->
+        <!-- &rem_des=" . $row['men_destinatario'] ."&mensaje=" . $row['men_mensaje'] . "&usuario=" . $row['men_remitente'] . "'>Leer</a> </td>"; -->
+        <!-- echo "</tr>"; -->
+                    
                     </td>
                     <td>
                      <a href="../carrito.php?idElm=<?php echo $row['id']?>" onClick="return confirm('¿Está seguro que desea eliminar esta factura')" class="btn btn-danger"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
