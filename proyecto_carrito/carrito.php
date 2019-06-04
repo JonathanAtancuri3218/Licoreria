@@ -89,10 +89,18 @@ header("Location: login.php");
 
                                             <tr class="cart_item wow fadeIn">
                                                 <td class="product-upper">
-                                               <?php 
+                                               
 
-                                               echo '<img src="data:image/jpeg;base64,' . base64_decode( $row['imagen'] ) . '" />';
-                                                 ?>
+<?php 
+
+
+echo ' <img style="width: 100px; height: 100px;" src="data:image/jpeg;base64' . base64_encode($row['imagen']) . '">';
+                   
+
+?>
+                                                
+
+                                           
 
                                                 </td>
 

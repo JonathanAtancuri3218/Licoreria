@@ -7,6 +7,12 @@ header("Location: index.php");
 }
 require_once('../conexion.php'); ?>
 <?php
+
+if(isset($_POST["submit"])){
+	$check = getimagesize($_FILES["image"]["tmp_name"]);
+	if($check !== false){
+			$image = $_FILES['image']['tmp_name'];
+			$imgContent = addslashes(file_get_contents($image));
 	if($_POST['agregarProducto'] == "agregarProducto"){
 		$unidad=$_POST[Unidad];
 	
@@ -22,7 +28,7 @@ require_once('../conexion.php'); ?>
 
 		$resource=$conn->query($q);
 		header("Location: listado_productos.php");
-	}
+			}}}
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -350,8 +356,17 @@ require_once('../conexion.php'); ?>
 							</div>
 						 </div>
 					</div>
-
-					
+        <br>
+					<div class="form-group">
+					  <label class="col-md-4 control-label">Imagen</label>  
+					   
+					       
+									<input type="file" name="image"/>
+								
+					  	</div>
+					  </div>
+					</div>
+					<br>
 					<!-- Success message -->
 					<div class="alert alert-success" role="alert" id="success_message">Success <i class="glyphicon glyphicon-thumbs-up"></i> Success!.</div>
 
