@@ -1,20 +1,20 @@
 <?php 
-error_reporting(E_ALL ^ E_NOTICE);
+error_reporting('E_ALL ^ E_NOTICE');
 if(!isset($_SESSION))session_start();
 if(!$_SESSION['admin_id']){
-$_SESSION[volver]=$_SERVER['PHP_SELF']."?".$_SERVER['QUERY_STRING'];
-header("Location: index.php");
+$_SESSION['volver']=$_SERVER['PHP_SELF']."?".$_SERVER['QUERY_STRING'];
+header('Location: index.php');
 }
 require_once('../conexion.php'); ?>
  <?php
-if(isset($_GET['idElm'])&& $_GET[idElm]<>""){
+if(isset($_GET['idElm'])&& $_GET['idElm']<>""){
 		$q="DELETE FROM productos WHERE 1 AND id='$_GET[idElm]'";
 		$r=$conn->query($q);
 	}
 $max=25;
 $pag=0;
 if(isset($_GET['pag']) && $_GET['pag'] <>""){
-$pag=$_GET[pag];
+$pag=$_GET['pag'];
 }
 $inicio=$pag * $max;
 $query="SELECT id, nombre, frase_promocional, precio, codigo, categoria,proveedor, unidad, disponibilidad, descripcion, promocion FROM productos
@@ -67,9 +67,8 @@ $total_pag = ceil($total/$max)-1;
     <form method="POST" action="producto_agregar.php">
  <input type="submit" class="btn btn-success" id="agregarProducto"  name="agregarProducto" value="Agregar Producto" />
  <br>
-        </form>
- <h2>Listado de Productos</h2> 
-
+</form>
+<br>
 <form action="buscar_productos.php" method="get" class=form-search>
 <input type="text" name="busqueda" id="busqueda" placeholder="Buscar" value="<?php echo $busqueda;?>">
 <input type="submit" value="Buscar" class="btn_search"  >
@@ -94,7 +93,10 @@ $total_pag = ceil($total/$max)-1;
                   </tr>
                 </thead>
                 <tbody>
-                 <?php  while ($row = $resource->fetch_assoc()){?>
+                 <?php  
+                 if ($total > 0) {
+
+                 while ($row = $resource->fetch_assoc()){?>
                   <tr>
                     <td class="col-xs-3 col-sm-3 col-md-4 col-lg-3"><img src="/img/<?php echo $row['codigo']?>.jpg" class="img-responsive" alt=""></td>
                     <td class="col-xs-3 col-sm-3 col-md-4 col-lg-3"><?php echo $row['nombre']?></td>
@@ -108,7 +110,10 @@ $total_pag = ceil($total/$max)-1;
                     <td class="col-xs-3 col-sm-3 col-md-4 col-lg-3"><a href="producto_modificar.php?id=<?php echo $row['id']?>" class="btn btn-md btn-success"><span class="glyphicon glyphicon-wrench" aria-hidden="true"></span></a></td>
                     <td class="col-xs-3 col-sm-3 col-md-4 col-lg-3"><a href="listado_productos.php?idElm=<?php echo $row['id']?>" class="btn btn-md btn-danger" onClick="return confirm('¿Está seguro que desea eliminar este Producto?')"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td>
                   </tr>
-                  <?php }?>
+                  <?php }
+                  } else {
+                    echo "0 resultados encontrados";
+                }?>
                 </tbody>
             </table>      
         </div>

@@ -14,21 +14,13 @@ if(isset($_GET['idElm'])&& $_GET['idElm']<>""){
 $max=5;
 $pag=0;
 if(isset($_GET['pag']) && $_GET['pag'] <>""){
-$pag=$_GET[pag];
+$pag=$_GET['pag'];
 }
 $inicio=$pag * $max;
-$query="SELECT id, nombre, email, telefono, nacionalidad FROM clientes where 
+$sql="SELECT id, nombre, email, telefono, nacionalidad FROM clientes where 
 estado = 1  ORDER BY id ASC";
+$resultado = $conn->query($sql);
 
-$query_limit= $query ." LIMIT $inicio,$max";
-$resource = $conn->query($query_limit);
-if (isset($_GET['total'])) {
-$total = $_GET['total'];
-} else {
-$resource_total = $conn -> query($query);
-$total = $resource_total->num_rows;
-}
-$total_pag = ceil($total/$max)-1;
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -99,7 +91,11 @@ $total_pag = ceil($total/$max)-1;
                   </tr>
                 </thead>
                 <tbody>
-                 <?php  while ($row = $resource->fetch_assoc()){?>
+                 <?php  
+                                  if ($resultado > 0) {
+                 while ($row = $resultado->fetch_assoc()){?>
+
+
                   <tr>
                   <td class="col-xs-3 col-sm-3 col-md-4 col-lg-3"><?php echo $row['id']?></td>
                     <td class="col-xs-3 col-sm-3 col-md-4 col-lg-3"><?php echo $row['nombre']?></td>
@@ -109,7 +105,10 @@ $total_pag = ceil($total/$max)-1;
                     <td class="col-xs-3 col-sm-3 col-md-4 col-lg-3"><a href="usuarios_modificar.php?id=<?php echo $row['id']?>" class="btn btn-md btn-success"><span class="glyphicon glyphicon-wrench" aria-hidden="true"></span></a></td>
                     <td class="col-xs-3 col-sm-3 col-md-4 col-lg-3"><a href="listado_usuarios.php?idElm=<?php echo $row['id']?>" class="btn btn-md btn-danger" onClick="return confirm('¿Está seguro que desea eliminar este Usuario?')"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td>
                   </tr>
-                  <?php }?>
+                  <?php }
+                  } else {
+                    echo "0 resultados encontrados";
+                }?>
                 </tbody>
             </table>      
         </div>

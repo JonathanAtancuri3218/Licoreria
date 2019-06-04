@@ -25,7 +25,7 @@ $id_user=$_SESSION['user_id'];
 		//print_r($_POST);
 		// $q="INSERT INTO `compras` (`id`, `cantidad`, `fecha`, `id_factura`, `id_producto`) VALUES (NULL, '$_POST[cantidad]', CURRENT_TIMESTAMP,'$_SESSION[factura]','$_POST[id]')";
 
-        $qc="UPDATE `factura` SET `subtotal` = '$_POST[subtotal]', `iva` = '$_POST[iva]', `total` = '$_POST[total]', `estado_pedido` = 'preparando'
+        $qc="UPDATE `factura` SET `subtotal` = '$_POST[subtotal]', `iva` = '$_POST[iva]', `total` = '$_POST[total]', `estado_pedido` = 'creado'
          WHERE `factura`.`id` = '$id_factura';";
 
 echo $qc;
