@@ -56,7 +56,7 @@
 			 usuario: {
                 validators: {
                      stringLength: {
-                        min: 5,
+                        min: 2,
                     },
                     notEmpty: {
                         message: 'EL Usuario debe tener al menos 8 caracteres'

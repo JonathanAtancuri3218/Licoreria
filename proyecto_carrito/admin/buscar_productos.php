@@ -1,44 +1,50 @@
 <?php 
-error_reporting('E_ALL ^ E_NOTICE');
+error_reporting(E_ALL ^ E_NOTICE);
 if(!isset($_SESSION))session_start();
 if(!$_SESSION['admin_id']){
 $_SESSION['volver']=$_SERVER['PHP_SELF']."?".$_SERVER['QUERY_STRING'];
-header('Location: index.php');
+header("Location: index.php");
 }
 require_once('../conexion.php'); ?>
- <?php
+<?php
 if(isset($_GET['idElm'])&& $_GET['idElm']<>""){
-		$q="DELETE FROM productos WHERE 1 AND id='$_GET[idElm]'";
+		$q="DELETE FROM clientes WHERE 1 AND id='$_GET[idElm]'";
 		$r=$conn->query($q);
 	}
-$max=25;
+$max=5;
 $pag=0;
 if(isset($_GET['pag']) && $_GET['pag'] <>""){
 $pag=$_GET['pag'];
 }
-$inicio=$pag * $max;
-$query="SELECT id, nombre, frase_promocional, precio, codigo, categoria,proveedor, unidad, disponibilidad, descripcion, promocion FROM productos
-        WHERE disponibilidad=1 ORDER BY fecha DESC";
-$query_limit= $query ." LIMIT $inicio,$max";
-$resource = $conn->query($query_limit);
-if (isset($_GET['total'])) {
-$total = $_GET['total'];
-} else {
-$resource_total = $conn -> query($query);
-$total = $resource_total->num_rows;
-}
-$total_pag = ceil($total/$max)-1;
+
+$busqueda=strtolower($_GET['busqueda']);
+if(empty($busqueda)){
+  header("location:listado_productos.php" );
+} 
+ $query="SELECT id, nombre, frase_promocional, precio, codigo, categoria,proveedor, unidad, disponibilidad, descripcion, promocion FROM productos 
+        WHERE (id LIKE '%$busqueda%' OR
+                nombre LIKE '%$busqueda%' OR
+                codigo LIKE '%$busqueda%' OR
+                categoria LIKE '%$busqueda%')
+        ORDER BY id ASC";
+
+$resultado = $conn->query($query);
+
 ?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Producto</title>
+        <title>Usuarios</title>
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
             <!-- Font Awezome -->
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+        
+        <link href="../css/buscar.css" rel="stylesheet" type="text/css">
+
+        
         <style>
             img{
                 max-width: 40%;
@@ -52,32 +58,27 @@ $total_pag = ceil($total/$max)-1;
     ?>
     <div class="container">                 
       <ul class="pager">
-       <?php if($pag-1 >= 0){?>
-        <li><a href="listado_productos.php?pag=<?php echo $pag -1?>&total=<?php echo $total?>">Anterior</a></li>
-        <?php } ?>
-        | <?php echo ($inicio + 1) ?> a <?php echo min($inicio + $max, $total) ?> | de <?php echo $total ?>
-        
-        <?php if($pag +1 <= $total_pag ){?>
-        <li><a href="listado_productos.php?pag=<?php echo $pag +1?>&total=<?php echo $total?>">Siguiente</a></li>
-        <?php } ?>
+       
       </ul>
     </div>
     <div class="container">
     <br>
-    <form method="POST" action="producto_agregar.php">
- <input type="submit" class="btn btn-success" id="agregarProducto"  name="agregarProducto" value="Agregar Producto" />
+    <form method="POST" action="agregar_usuarios.php">
+    <input type="submit" class="btn btn-success" id="agregarUsuario"  name="agregarUsuario" value="Agregar Usuario" />
+    </form>
+
  <br>
-</form>
-<br>
+ <h2>Listado de Productos</h2> 
+
 <form action="buscar_productos.php" method="get" class=form-search>
 <input type="text" name="busqueda" id="busqueda" placeholder="Buscar" value="<?php echo $busqueda;?>">
 <input type="submit" value="Buscar" class="btn_search"  >
 </form>
 <br>
-      <h2>Listado de Productos</h2> 
         <div class="table-responsive">
             <table class="table">
                 <thead>
+                  <tr>
                   <tr>
                     <th>Foto Producto</th>
                     <th>Nombre Producto</th>
@@ -87,22 +88,21 @@ $total_pag = ceil($total/$max)-1;
                     <th>Unidad</th>
                     <th>Precio</th>
                     <th>¿Disponible?</th>
-					<th>En Promoción</th>
+				          	<th>En Promoción</th>
                  	<th>Modificar Producto</th>
                  	<th>Eliminar Producto</th>
-                  </tr>
+                  </tr>   
                 </thead>
                 <tbody>
                  <?php  
-                 if ($total > 0) {
-
-                 while ($row = $resource->fetch_assoc()){?>
+                 
+             	  
+                 while ($row = $resultado->fetch_assoc()){?>
                   <tr>
-                    <td class="col-xs-3 col-sm-3 col-md-4 col-lg-3"><img src="/img/<?php echo $row['codigo']?>.jpg" class="img-responsive" alt=""></td>
+                  <td class="col-xs-3 col-sm-3 col-md-4 col-lg-3"><img src="/img/<?php echo $row['codigo']?>.jpg" class="img-responsive" alt=""></td>
                     <td class="col-xs-3 col-sm-3 col-md-4 col-lg-3"><?php echo $row['nombre']?></td>
                     <td class="col-xs-3 col-sm-3 col-md-4 col-lg-3"><?php echo $row['codigo']?></td>
                     <td class="col-xs-3 col-sm-3 col-md-4 col-lg-3"><?php echo $row['categoria']?></td>
-                    <td class="col-xs-3 col-sm-3 col-md-4 col-lg-3"><?php echo $row['proveedor']?></td>
                     <td class="col-xs-3 col-sm-3 col-md-4 col-lg-3"><?php echo $row['unidad']?></td>
                     <td class="col-xs-3 col-sm-3 col-md-4 col-lg-3">$<?php echo number_format($row['precio'])?></td>
                     <td class="col-xs-3 col-sm-3 col-md-4 col-lg-3"><?php echo $row['disponibilidad']?></td>
@@ -110,12 +110,21 @@ $total_pag = ceil($total/$max)-1;
                     <td class="col-xs-3 col-sm-3 col-md-4 col-lg-3"><a href="producto_modificar.php?id=<?php echo $row['id']?>" class="btn btn-md btn-success"><span class="glyphicon glyphicon-wrench" aria-hidden="true"></span></a></td>
                     <td class="col-xs-3 col-sm-3 col-md-4 col-lg-3"><a href="listado_productos.php?idElm=<?php echo $row['id']?>" class="btn btn-md btn-danger" onClick="return confirm('¿Está seguro que desea eliminar este Producto?')"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td>
                   </tr>
+
+
                   <?php }
-                  } else {
-                    echo "0 resultados encontrados";
-                }?>
+                  
+  
+                   ?>
+
+<?php 
+// Resultado, número de registros y contenido.
+echo $registros;
+echo $texto; 
+?>
                 </tbody>
-            </table>      
+            </table>    
+
         </div>
       
     </div>

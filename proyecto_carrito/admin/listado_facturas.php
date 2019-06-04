@@ -1,15 +1,15 @@
 <?php 
 error_reporting(E_ALL ^ E_NOTICE);
-require_once("conexion.php")?>
+require_once("../conexion.php")?>
 <?php 
-if(!$_SESSION['user_id']){
-$_SESSION[volver]=$_SERVER['PHP_SELF']."?".$_SERVER['QUERY_STRING'];
-header("Location: login.php");
+if(!$_SESSION['admin_id']){
+$_SESSION['volver']=$_SERVER['PHP_SELF']."?".$_SERVER['QUERY_STRING'];
+header("Location: index.php");
 }
 ?>
 <?php	
 $factura_vista=$_GET['idElm'];
-$id_usuario=(int)$_SESSION['user_id'];
+$id_usuario=(int)$_SESSION['admin_id'];
 $id_factura=(int)$_SESSION['factura'];
 echo $factura_vista;
 
@@ -42,20 +42,27 @@ where f.id_cliente=$id_usuario and f.id ='$factura_vista'" ;
 ?>
 <!DOCTYPE html>
 <html lang="es">
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+            <!-- Font Awezome -->
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+        
+<link href="../css/buscar.css" rel="stylesheet" type="text/css">
   <head>
-    <?php include("head.php");?>
+   
     <style>
     .descuento{
         display: none;
     }  
     </style>
+
+    
   </head>
   <body>
     <!-- header -->
-    <?php include("header.php");?><!-- fin header --> 
 
     <!-- Menu Principal -->
-    <?php include("menu.php");?>    
+    <?php include("menu_admin.php");?>    
     <!-- End Menu Principal -->
     
     <div class="product-big-title-area">
@@ -80,7 +87,7 @@ where f.id_cliente=$id_usuario and f.id ='$factura_vista'" ;
                     <div class="product-content-right">
                         <div class="woocommerce">
 
-                            <h2>Su compra se ha completado con Éxito</h2>
+                            <h2></h2>
                             <div class="table-responsive col-xs-12">
                                     <table cellspacing="0" class="shop_table cart">
                                         <thead>
@@ -153,8 +160,6 @@ where f.id_cliente=$id_usuario and f.id ='$factura_vista'" ;
     <?php
      
     ?>
-    <?php include("footer.php");?><!-- End Footer -->   
-    <!-- JS -->
-    <?php include("js.php");?><!-- End JS -->
+   
   </body>
 </html>

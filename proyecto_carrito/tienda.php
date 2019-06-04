@@ -3,9 +3,16 @@ error_reporting('E_ALL ^ E_NOTICE');
 require_once('conexion.php');
 ?>
 <?php
+
+$id_factura=(int)$_SESSION['factura'];
 $max=24;
 $por_pagina = 24;
 $pag=0;
+
+echo $id_factura;
+
+
+
 if(isset($_GET["pag"]) && $_GET["pag"] <>""){
     $pag=$_GET["pag"];
 }
@@ -16,7 +23,10 @@ if (isset($_GET["total"]) && $pag != 0) {
     $por_pagina = $por_pagina*($pag+1);
 }
 
+
+
 $consulta = (isset($_REQUEST["consulta"]))? $_REQUEST["consulta"] : "";
+
 
 if($consulta != ""){
 
@@ -78,6 +88,7 @@ $resource = $conn -> query($query);
 $resource_limit = $conn->query($query_limit);
 $total = $resource->num_rows;
 
+
 $total_pag = ceil($total/$max)-1;
 ?>
 <!DOCTYPE html>
@@ -88,6 +99,7 @@ $total_pag = ceil($total/$max)-1;
       
   </head>
   <body>
+   
    
     <!-- header -->
     <?php include("header.php");?><!-- fin header -->  

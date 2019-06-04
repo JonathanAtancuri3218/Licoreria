@@ -5,14 +5,53 @@ require_once("conexion.php")?>
 if(!$_SESSION['user_id']){
 $_SESSION['volver']=$_SERVER['PHP_SELF']."?".$_SERVER['QUERY_STRING'];
 header("Location: login.php");
+
+
 }
 ?>
 <?php	
+
+$id_factura=(int)$_SESSION['factura'];
+
+
+
+$id_user=$_SESSION['user_id'];
 	if(isset($_GET['idElm'])&& $_GET['idElm']<>""){
 		$q="DELETE FROM compras WHERE 1 AND id='$_GET[idElm]'";
 		$r=$conn->query($q);
+    }
+    
+    if($_POST['confirmar'] == "confirmar"){
+		//print_r($_POST);
+		// $q="INSERT INTO `compras` (`id`, `cantidad`, `fecha`, `id_factura`, `id_producto`) VALUES (NULL, '$_POST[cantidad]', CURRENT_TIMESTAMP,'$_SESSION[factura]','$_POST[id]')";
+
+        $qc="UPDATE `factura` SET `subtotal` = '$_POST[subtotal]', `iva` = '$_POST[iva]', `total` = '$_POST[total]', `estado_pedido` = 'creado'
+         WHERE `factura`.`id` = '$id_factura';";
+
+echo $qc;
+
+         $rc=$conn->query($qc);
+        
+
+      echo $_POST[subtotal]." iva ".$_POST[iva]." total ".$_POST[total]. "id fac ".$id_factura  ;
+    
+
+		header("Location: confirmacion.php?id_factura=$id_factura");
 	}
-      $q="SELECT * FROM compras WHERE 1 AND cliente='$_SESSION[user_id]' ORDER BY fecha DESC";
+    $query1="SELECT * FROM factura where id_cliente='$_SESSION[user_id]' order by fecha desc";
+    $resource1=$conn->query($query1);
+    
+      $row1=$resource1->fetch_assoc();
+
+  
+
+    // echo  $row1 ['id'];
+   
+    //   $q="SELECT * FROM compras WHERE 1 AND cliente='$_SESSION[user_id]' ORDER BY fecha DESC";
+    $q=" SELECT  p.nombre as nombre,  c.cantidad as cantidad,  p.precio as precio FROM compras c
+    inner join productos p on p.id=c.id_producto
+    inner join factura f on f.id=c.id_factura
+    where f.id_cliente='$id_user' and f.estado_pedido='' order by cantidad desc";
       $r = $conn->query($q); 
       $t = $r->num_rows;
       
@@ -80,17 +119,13 @@ header("Location: login.php");
                                             
                                            <?php while ($row = $r->fetch_assoc()){?>
                                            
-                                        
-
-
-
 
                               
-
                                             <tr class="cart_item wow fadeIn">
                                                 <td class="product-upper">
                                                
 
+<<<<<<< HEAD
 <?php 
 
 
@@ -101,6 +136,17 @@ echo ' <img style="width: 100px; height: 100px;" src="data:image/jpeg;base64' . 
                                                 
 
                                            
+=======
+                                               //echo '<img src="data:image/jpeg;base64,' . base64_decode( $row['imagen'] ) . '" />';
+                                               
+                                               
+                                               echo '<img src="'.$row['imagen'].'" width="200px" height="200px">';
+
+
+                                               //echo '<img src="'.$imgData['usu_img'].'" width="200px" height="200px">'; 
+
+                                                 ?>
+>>>>>>> f6f7e306fd53a39b76d632ad1e8dcf5ab21c6b14
 
                                                 </td>
 
@@ -149,6 +195,7 @@ echo ' <img style="width: 100px; height: 100px;" src="data:image/jpeg;base64' . 
 
     
                                             <tr>
+                                        
                                                 <td>Subtotal</td>
                                                 <td>$<?php echo number_format($subtotal=($subtotal+$envio)-$descuento, 0, ',', '.');?></td>
                                             </tr>
@@ -164,8 +211,12 @@ echo ' <img style="width: 100px; height: 100px;" src="data:image/jpeg;base64' . 
                                             <tr>
                                                 <td>Confirme Su Compra</td>
                                                 <td>
-                                                    <form id="form1" method="post" action="confirmacion.php">
-                                                        <input type="submit" name="button" id="button" value="comprar" class="btn btn-success">
+                                                    <form id="confirmar" name="confirmar"method="post" action="">
+                                                        <input type="submit" name="confirmar" id="confirmar" value="confirmar" class="btn btn-success">
+                                                        <!-- <input type="hidden" name="factura" id="factura" value="<?php echo $row1['id']?>">  -->
+                                                        <input type="hidden" name="subtotal" id="subtotal" value="<?php echo $subtotal?>"> 
+                                                        <input type="hidden" name="iva" id="iva" value="<?php echo $iva?>"> 
+                                                        <input type="hidden" name="total" id="total" value="<?php echo $total?>"> 
                                                     </form>
                                                 </td>
                                             </tr>
