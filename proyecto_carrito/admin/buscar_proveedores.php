@@ -19,16 +19,16 @@ $pag=$_GET['pag'];
 
 $busqueda=strtolower($_GET['busqueda']);
 if(empty($busqueda)){
-  header("location:listado_usuarios.php" );
+  header("location:listado_proveedores.php" );
 } 
 
- $query="SELECT * FROM clientes 
+ $query="SELECT id, nombre, contacto, telefono, direccion FROM proveedores 
         WHERE (id LIKE '%$busqueda%' OR
                 nombre LIKE '%$busqueda%' OR
-                email LIKE '%$busqueda%' OR
+                contacto LIKE '%$busqueda%' OR
                 telefono LIKE '%$busqueda%' OR
-                nacionalidad LIKE '%$busqueda%')
-        AND estado = 1  ORDER BY id ASC";
+                direccion LIKE '%$busqueda%')
+         ORDER BY id ASC";
 
 $resultado = $conn->query($query);
 
@@ -65,14 +65,14 @@ $resultado = $conn->query($query);
     </div>
     <div class="container">
     <br>
-    <form method="POST" action="agregar_usuarios.php">
+    <form method="POST" action="agregar_proveedores.php">
     <input type="submit" class="btn btn-success" id="agregarUsuario"  name="agregarUsuario" value="Agregar Usuario" />
     </form>
 
  <br>
- <h2>Listado de Usuarios</h2> 
+ <h2>Listado de Proveedores</h2> 
 
-<form action="buscar_usuario.php" method="get" class=form-search>
+<form action="buscar_proveedores.php" method="get" class=form-search>
 <input type="text" name="busqueda" id="busqueda" placeholder="Buscar" value="<?php echo $busqueda;?>">
 <input type="submit" value="Buscar" class="btn_search"  >
 </form>
@@ -82,10 +82,10 @@ $resultado = $conn->query($query);
                 <thead>
                   <tr>
                   <th>ID</th>
-                    <th>Nombre Usuario</th>
-                    <th>Email</th>
+                    <th>Nombre del Proveedor</th>
+                    <th>Contacto</th>
                     <th>Teléfono</th>
-                    <th>Nacionalidad</th>
+                    <th>Direccion</th>
                     <th>Modificar</th>
                  	<th>Eliminar</th>
                   </tr>   
@@ -98,11 +98,11 @@ $resultado = $conn->query($query);
                   <tr>
                   <td class="col-xs-3 col-sm-3 col-md-4 col-lg-3"><?php echo $row['id']?></td>
                     <td class="col-xs-3 col-sm-3 col-md-4 col-lg-3"><?php echo $row['nombre']?></td>
-                    <td class="col-xs-3 col-sm-3 col-md-4 col-lg-3"><a href="mailto:<?php echo $row['email']?>"><?php echo $row['email']?></a></td>
-                    <td class="col-xs-3 col-sm-3 col-md-4 col-lg-3"><a href="tel:<?php echo $row['telefono']?>"><?php echo $row['telefono']?></a></td>
-                    <td class="col-xs-3 col-sm-3 col-md-4 col-lg-3"><?php echo $row['nacionalidad']?></td>
-                    <td class="col-xs-3 col-sm-3 col-md-4 col-lg-3"><a href="usuarios_modificar.php?id=<?php echo $row['id']?>" class="btn btn-md btn-success"><span class="glyphicon glyphicon-wrench" aria-hidden="true"></span></a></td>
-                    <td class="col-xs-3 col-sm-3 col-md-4 col-lg-3"><a href="listado_usuarios.php?idElm=<?php echo $row['id']?>" class="btn btn-md btn-danger" onClick="return confirm('¿Está seguro que desea eliminar este Usuario?')"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td>
+                    <td class="col-xs-3 col-sm-3 col-md-4 col-lg-3"><?php echo $row['contacto']?></td>
+                    <td class="col-xs-3 col-sm-3 col-md-4 col-lg-3"><?php echo $row['telefono']?></td>
+                    <td class="col-xs-3 col-sm-3 col-md-4 col-lg-3"><?php echo $row['direccion']?></td>
+                    <td class="col-xs-3 col-sm-3 col-md-4 col-lg-3"><a href="proveedor_modificar.php?id=<?php echo $row['id']?>" class="btn btn-md btn-success"><span class="glyphicon glyphicon-wrench" aria-hidden="true"></span></a></td>
+                    <td class="col-xs-3 col-sm-3 col-md-4 col-lg-3"><a href="listado_proveedores.php?idElm=<?php echo $row['id']?>" class="btn btn-md btn-danger" onClick="return confirm('¿Está seguro que desea eliminar este Proveedor?')"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td>
                   </tr>
 
 

@@ -169,7 +169,7 @@ require_once('../conexion.php'); ?>
 							  <label class="col-md-4 control-label">Email</label>  
 							    <div class="col-md-4 inputGroupContainer">
 							    <div class="input-group">
-							        <span class="input-group-addon"><i class="glyphicon glyphicon-barcode"></i></span>
+							        <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
 							  		<input name="email" id="email" placeholder="Ingrese email" class="form-control"  type="text" style="text-transform: uppercase">
 							    </div>
 							  </div>
@@ -181,7 +181,7 @@ require_once('../conexion.php'); ?>
 					  <label class="col-md-4 control-label">Telefono</label>  
 					    <div class="col-md-4 inputGroupContainer">
 					    <div class="input-group">
-					        <span class="input-group-addon"><i class="glyphicon glyphicon-usd"></i></span>
+					        <span class="input-group-addon"><i class="glyphicon glyphicon-phone-alt"></i></span>
 					  	<input name="telefono" id="telefono" placeholder="Ingrese el telefono " class="form-control" type="text">
 					    </div>
 					  </div>
@@ -193,7 +193,7 @@ require_once('../conexion.php'); ?>
 					  <label class="col-md-4 control-label">Nacionalidad</label>  
 					    <div class="col-md-4 inputGroupContainer">
 					    <div class="input-group">
-					        <span class="input-group-addon"><i class="glyphicon glyphicon-usd"></i></span>
+					        <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
 					  	<input name="nacionalidad" id="nacionalidad" placeholder="Ingrese la nacionalidad " class="form-control" type="text">
 					    </div>
 					  </div>
@@ -205,7 +205,7 @@ require_once('../conexion.php'); ?>
 					  <label class="col-md-4 control-label">Direccion</label>  
 					    <div class="col-md-4 inputGroupContainer">
 					    <div class="input-group">
-					        <span class="input-group-addon"><i class="glyphicon glyphicon-usd"></i></span>
+					        <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
 					  	<input name="direccion" id="direccion" placeholder="Ingrese la direccion " class="form-control" type="text">
 					    </div>
 					  </div>
@@ -216,7 +216,7 @@ require_once('../conexion.php'); ?>
 					  <label class="col-md-4 control-label">Numero</label>  
 					    <div class="col-md-4 inputGroupContainer">
 					    <div class="input-group">
-					        <span class="input-group-addon"><i class="glyphicon glyphicon-usd"></i></span>
+					        <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
 					  	<input name="numero" id="numero" placeholder="Ingrese el numero " class="form-control" type="text">
 					    </div>
 					  </div>
@@ -225,10 +225,10 @@ require_once('../conexion.php'); ?>
 
                        <!-- Comuna -->
                        <div class="form-group">
-					  <label class="col-md-4 control-label">Numero</label>  
+					  <label class="col-md-4 control-label">Comuna</label>  
 					    <div class="col-md-4 inputGroupContainer">
 					    <div class="input-group">
-					        <span class="input-group-addon"><i class="glyphicon glyphicon-usd"></i></span>
+					        <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
 					  	<input name="comuna" id="comuna" placeholder="Ingrese la comuna " class="form-control" type="text">
 					    </div>
 					  </div>
@@ -238,7 +238,7 @@ require_once('../conexion.php'); ?>
 					  <label class="col-md-4 control-label">Sector</label>  
 					    <div class="col-md-4 inputGroupContainer">
 					    <div class="input-group">
-					        <span class="input-group-addon"><i class="glyphicon glyphicon-usd"></i></span>
+					        <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
 					  	<input name="sector" id="sector" placeholder="Ingrese el sector " class="form-control" type="text">
 					    </div>
 					  </div>
@@ -248,7 +248,7 @@ require_once('../conexion.php'); ?>
 					  <label class="col-md-4 control-label">Usuario</label>  
 					    <div class="col-md-4 inputGroupContainer">
 					    <div class="input-group">
-					        <span class="input-group-addon"><i class="glyphicon glyphicon-usd"></i></span>
+					        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
 					  	<input name="usuario" id="usuario" placeholder="Ingrese el usuario " class="form-control" type="text">
 					    </div>
 					  </div>
@@ -259,7 +259,7 @@ require_once('../conexion.php'); ?>
 					  <label class="col-md-4 control-label">Contrasena</label>  
 					    <div class="col-md-4 inputGroupContainer">
 					    <div class="input-group">
-					        <span class="input-group-addon"><i class="glyphicon glyphicon-usd"></i></span>
+					        <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
 					  	<input name="contrasena" id="contrasena" placeholder="Ingrese la contrasena " class="form-control" type="text">
 					    </div>
 					  </div>

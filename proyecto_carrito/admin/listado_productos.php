@@ -17,7 +17,8 @@ if(isset($_GET['pag']) && $_GET['pag'] <>""){
 $pag=$_GET[pag];
 }
 $inicio=$pag * $max;
-$query="SELECT id, nombre, frase_promocional, precio, codigo, categoria, unidad, disponibilidad, descripcion, promocion FROM productos ORDER BY fecha DESC";
+$query="SELECT id, nombre, frase_promocional, precio, codigo, categoria,proveedor, unidad, disponibilidad, descripcion, promocion FROM productos
+        WHERE disponibilidad=1 ORDER BY fecha DESC";
 $query_limit= $query ." LIMIT $inicio,$max";
 $resource = $conn->query($query_limit);
 if (isset($_GET['total'])) {
@@ -66,6 +67,14 @@ $total_pag = ceil($total/$max)-1;
     <form method="POST" action="producto_agregar.php">
  <input type="submit" class="btn btn-success" id="agregarProducto"  name="agregarProducto" value="Agregar Producto" />
  <br>
+        </form>
+ <h2>Listado de Productos</h2> 
+
+<form action="buscar_productos.php" method="get" class=form-search>
+<input type="text" name="busqueda" id="busqueda" placeholder="Buscar" value="<?php echo $busqueda;?>">
+<input type="submit" value="Buscar" class="btn_search"  >
+</form>
+<br>
       <h2>Listado de Productos</h2> 
         <div class="table-responsive">
             <table class="table">
@@ -75,6 +84,7 @@ $total_pag = ceil($total/$max)-1;
                     <th>Nombre Producto</th>
                     <th>Código</th>
                     <th>Categoría</th>
+                    <th>Proveedor</th>
                     <th>Unidad</th>
                     <th>Precio</th>
                     <th>¿Disponible?</th>
@@ -90,6 +100,7 @@ $total_pag = ceil($total/$max)-1;
                     <td class="col-xs-3 col-sm-3 col-md-4 col-lg-3"><?php echo $row['nombre']?></td>
                     <td class="col-xs-3 col-sm-3 col-md-4 col-lg-3"><?php echo $row['codigo']?></td>
                     <td class="col-xs-3 col-sm-3 col-md-4 col-lg-3"><?php echo $row['categoria']?></td>
+                    <td class="col-xs-3 col-sm-3 col-md-4 col-lg-3"><?php echo $row['proveedor']?></td>
                     <td class="col-xs-3 col-sm-3 col-md-4 col-lg-3"><?php echo $row['unidad']?></td>
                     <td class="col-xs-3 col-sm-3 col-md-4 col-lg-3">$<?php echo number_format($row['precio'])?></td>
                     <td class="col-xs-3 col-sm-3 col-md-4 col-lg-3"><?php echo $row['disponibilidad']?></td>

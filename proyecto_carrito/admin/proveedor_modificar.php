@@ -8,8 +8,8 @@ header("Location: index.php");
 require_once('../conexion.php'); ?>
 <?php
 	if($_POST['enviar'] == "Modificar"){
-        $usuario_id=$_SESSION['idUser'];
-		$q="UPDATE `proveedores` SET `nombre` = '$_POST[nombre]', `contacto` = '$_POST[contacto]', `telefono` = '$_POST[telefono]', `direccion` = '$_POST[direccion]','$usuario_id' WHERE `proveedores`.`id` = $_POST[id];";
+        //$usuario_id=$_SESSION['idUser'];
+		$q="UPDATE `proveedores` SET `nombre` = '$_POST[nombre]', `contacto` = '$_POST[contacto]', `telefono` = '$_POST[telefono]', `direccion` = '$_POST[direccion]' WHERE `proveedores`.`id` = $_POST[id];";
         $resource=$conn->query($q);
         
 		header("Location: listado_proveedores.php");

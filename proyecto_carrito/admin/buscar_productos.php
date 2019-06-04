@@ -19,16 +19,14 @@ $pag=$_GET['pag'];
 
 $busqueda=strtolower($_GET['busqueda']);
 if(empty($busqueda)){
-  header("location:listado_usuarios.php" );
+  header("location:listado_productos.php" );
 } 
-
- $query="SELECT * FROM clientes 
+ $query="SELECT id, nombre, frase_promocional, precio, codigo, categoria,proveedor, unidad, disponibilidad, descripcion, promocion FROM productos 
         WHERE (id LIKE '%$busqueda%' OR
                 nombre LIKE '%$busqueda%' OR
-                email LIKE '%$busqueda%' OR
-                telefono LIKE '%$busqueda%' OR
-                nacionalidad LIKE '%$busqueda%')
-        AND estado = 1  ORDER BY id ASC";
+                codigo LIKE '%$busqueda%' OR
+                categoria LIKE '%$busqueda%')
+        ORDER BY id ASC";
 
 $resultado = $conn->query($query);
 
@@ -70,9 +68,9 @@ $resultado = $conn->query($query);
     </form>
 
  <br>
- <h2>Listado de Usuarios</h2> 
+ <h2>Listado de Productos</h2> 
 
-<form action="buscar_usuario.php" method="get" class=form-search>
+<form action="buscar_productos.php" method="get" class=form-search>
 <input type="text" name="busqueda" id="busqueda" placeholder="Buscar" value="<?php echo $busqueda;?>">
 <input type="submit" value="Buscar" class="btn_search"  >
 </form>
@@ -81,13 +79,18 @@ $resultado = $conn->query($query);
             <table class="table">
                 <thead>
                   <tr>
-                  <th>ID</th>
-                    <th>Nombre Usuario</th>
-                    <th>Email</th>
-                    <th>Teléfono</th>
-                    <th>Nacionalidad</th>
-                    <th>Modificar</th>
-                 	<th>Eliminar</th>
+                  <tr>
+                    <th>Foto Producto</th>
+                    <th>Nombre Producto</th>
+                    <th>Código</th>
+                    <th>Categoría</th>
+                    <th>Proveedor</th>
+                    <th>Unidad</th>
+                    <th>Precio</th>
+                    <th>¿Disponible?</th>
+				          	<th>En Promoción</th>
+                 	<th>Modificar Producto</th>
+                 	<th>Eliminar Producto</th>
                   </tr>   
                 </thead>
                 <tbody>
@@ -96,13 +99,16 @@ $resultado = $conn->query($query);
              	  
                  while ($row = $resultado->fetch_assoc()){?>
                   <tr>
-                  <td class="col-xs-3 col-sm-3 col-md-4 col-lg-3"><?php echo $row['id']?></td>
+                  <td class="col-xs-3 col-sm-3 col-md-4 col-lg-3"><img src="/img/<?php echo $row['codigo']?>.jpg" class="img-responsive" alt=""></td>
                     <td class="col-xs-3 col-sm-3 col-md-4 col-lg-3"><?php echo $row['nombre']?></td>
-                    <td class="col-xs-3 col-sm-3 col-md-4 col-lg-3"><a href="mailto:<?php echo $row['email']?>"><?php echo $row['email']?></a></td>
-                    <td class="col-xs-3 col-sm-3 col-md-4 col-lg-3"><a href="tel:<?php echo $row['telefono']?>"><?php echo $row['telefono']?></a></td>
-                    <td class="col-xs-3 col-sm-3 col-md-4 col-lg-3"><?php echo $row['nacionalidad']?></td>
-                    <td class="col-xs-3 col-sm-3 col-md-4 col-lg-3"><a href="usuarios_modificar.php?id=<?php echo $row['id']?>" class="btn btn-md btn-success"><span class="glyphicon glyphicon-wrench" aria-hidden="true"></span></a></td>
-                    <td class="col-xs-3 col-sm-3 col-md-4 col-lg-3"><a href="listado_usuarios.php?idElm=<?php echo $row['id']?>" class="btn btn-md btn-danger" onClick="return confirm('¿Está seguro que desea eliminar este Usuario?')"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td>
+                    <td class="col-xs-3 col-sm-3 col-md-4 col-lg-3"><?php echo $row['codigo']?></td>
+                    <td class="col-xs-3 col-sm-3 col-md-4 col-lg-3"><?php echo $row['categoria']?></td>
+                    <td class="col-xs-3 col-sm-3 col-md-4 col-lg-3"><?php echo $row['unidad']?></td>
+                    <td class="col-xs-3 col-sm-3 col-md-4 col-lg-3">$<?php echo number_format($row['precio'])?></td>
+                    <td class="col-xs-3 col-sm-3 col-md-4 col-lg-3"><?php echo $row['disponibilidad']?></td>
+                    <td class="col-xs-3 col-sm-3 col-md-4 col-lg-3"><?php echo $row['promocion']?></td>
+                    <td class="col-xs-3 col-sm-3 col-md-4 col-lg-3"><a href="producto_modificar.php?id=<?php echo $row['id']?>" class="btn btn-md btn-success"><span class="glyphicon glyphicon-wrench" aria-hidden="true"></span></a></td>
+                    <td class="col-xs-3 col-sm-3 col-md-4 col-lg-3"><a href="listado_productos.php?idElm=<?php echo $row['id']?>" class="btn btn-md btn-danger" onClick="return confirm('¿Está seguro que desea eliminar este Producto?')"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td>
                   </tr>
 
 

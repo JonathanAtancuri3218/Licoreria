@@ -2,7 +2,7 @@
 error_reporting(E_ALL ^ E_NOTICE);
 if(!isset($_SESSION))session_start();
 if(!$_SESSION['admin_id']){
-$_SESSION[volver]=$_SERVER['PHP_SELF']."?".$_SERVER['QUERY_STRING'];
+$_SESSION['volver']=$_SERVER['PHP_SELF']."?".$_SERVER['QUERY_STRING'];
 header("Location: index.php");
 }
 require_once('../conexion.php'); ?>
@@ -17,7 +17,8 @@ if(isset($_GET['pag']) && $_GET['pag'] <>""){
 $pag=$_GET[pag];
 }
 $inicio=$pag * $max;
-$query="SELECT id, nombre, contacto, telefono, direccion FROM proveedores ORDER BY id ASC";
+$query="SELECT id, nombre, contacto, telefono, direccion FROM proveedores 
+where estado=1 ORDER BY id ASC";
 $query_limit= $query ." LIMIT $inicio,$max";
 $resource = $conn->query($query_limit);
 if (isset($_GET['total'])) {
@@ -65,8 +66,15 @@ $total_pag = ceil($total/$max)-1;
     <br>
     <form method="POST" action="agregar_proveedores.php">
  <input type="submit" class="btn btn-success" id="agregarProveedor"  name="agregarProveedor" value="Agregar Proveedor" />
+    </form>
  <br>
+
       <h2>Listado de Proveedores</h2> 
+      <form action="buscar_proveedores.php" method="get" class=form-search>
+<input type="text" name="busqueda" id="busqueda" placeholder="Buscar" value="<?php echo $busqueda;?>">
+<input type="submit" value="Buscar" class="btn_search"  >
+</form>
+<br>
         <div class="table-responsive">
             <table class="table">
 
