@@ -19,10 +19,10 @@ if (!$_POST){
     $headers .= "X-Priority: 3\n";
     $headers .= "X-MSMail-Priority: Normal\n";
     $headers .= "X-Mailer: php\n";
-    $headers .= "From: \"".$_POST['nombre']." ".$_POST['apellido']."\" <".$remitente.">\n";
+    $headers .= "From: \"".$_POST['nombre']."\" <".$remitente.">\n";
 
     mail($destinatario, $asunto, $cuerpo, $headers);
     
-    include 'confirma.html'; //se debe crear un html que confirma el envío
+    include 'enviado.php'; //se debe crear un html que confirma el envío
 }
 ?>
