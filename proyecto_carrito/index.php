@@ -53,7 +53,7 @@ $total_pag = ceil($total/$max)-1;
                <article class="col-md-6 wow fadeIn">
                    <h3>Vision</h3>
                    <p> Ser el market de licores mas reconocido a nivel nacional 
-por su variedad, calidad de producto y servicios.</p>
+                      por su variedad, calidad de producto y servicios.</p>
                </article>
             </div>
         </div>

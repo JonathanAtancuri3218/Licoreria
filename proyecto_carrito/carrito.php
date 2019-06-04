@@ -91,6 +91,7 @@ header("Location: login.php");
                                                
                                                echo '<img src="'.$row['imagen'].'" width="200px" height="200px">';
 
+
                                                //echo '<img src="'.$imgData['usu_img'].'" width="200px" height="200px">'; 
 
                                                  ?>

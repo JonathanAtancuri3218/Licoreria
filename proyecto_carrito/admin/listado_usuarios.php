@@ -80,9 +80,9 @@ $total_pag = ceil($total/$max)-1;
 
       <h2>Listado de Usuarios</h2> 
 
-      <form action="buscar_usuario.php" method="GET" class=form-search>
-      <input type="text" name="busqueda" id="busqueda" placeholder="Buscar" >
-      <input type="submit" value="Buscar" class="btn_search" name="busqueda" >
+      <form action="buscar_usuario.php" method="get" class=form-search>
+      <input type="text" name="busqueda" id="busqueda" placeholder="Buscar" value="<?php echo $busqueda;?>">
+      <input type="submit" value="Buscar" class="btn_search"  >
       </form>
       <br>
         <div class="table-responsive">
