@@ -17,8 +17,12 @@ $id_factura=(int)$_SESSION['factura'];
 
 $id_user=$_SESSION['user_id'];
 	if(isset($_GET['idElm'])&& $_GET['idElm']<>""){
-		$q="DELETE FROM compras WHERE 1 AND id='$_GET[idElm]'";
-		$r=$conn->query($q);
+        
+        $quier="UPDATE `factura` SET `estado_pedido` = 'pedido cancelado' WHERE `factura`.`id` = '$_GET[idElm]'";
+
+
+
+		$resss=$conn->query($quier);
     }
     //confirmar compra
     if($_POST['confirmar'] == "confirmar"){
@@ -116,7 +120,7 @@ echo $qc;
                                                 <th class="product-total"aria-hidden="true"><i class="fa fa-usd" aria-hidden="true">total</th>
                                                 <th class="product-subtotal"><i class="glyphicon glyphicon-list-alt" aria-hidden="true"></i> estado</th>
                                                 <th><i aria-hidden="true"><i class="glyphicon glyphicon-eye-open" aria-hidden="true"></i> ver</th>
-                                                <th><i class="fa fa-times" aria-hidden="true"></i> Eliminar</th>
+                                                <th><i class="fa fa-times" aria-hidden="true"></i> Cancelar Pedido</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -177,7 +181,7 @@ echo $qc;
                                                     <a href="confirmacion.php?idElm=<?php echo $row['id']?>"  class="btn btn-info"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a>
                                                 </td>
                                                 <td>
-                                                    <a href="carrito.php?idElm=<?php echo $row['id']?>" onClick="return confirm('¿Está seguro que desea eliminar esta compra?')" class="btn btn-danger"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
+                                                    <a href="lista_pedidos.php?idElm=<?php echo $row['id']?>" onClick="return confirm('¿Está seguro que desea cancelar esta compra?')" class="btn btn-danger"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
                                                 </td>
                                             </tr>
                                             <?php }?>  
