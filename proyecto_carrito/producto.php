@@ -14,21 +14,24 @@ if($_POST['comprar'] == "Comprar"){
         $qc="SELECT  c.id, c.cantidad, c.id_producto FROM factura f
         inner join
         compras c
-        where f.id='$id_factura';";
+        where f.id='$id_factura'";
 
 
 
         $rc=$conn->query($qc);
         while($rowc = $rc->fetch_assoc()){
+
             $id_pro_base = (int) $rowc["id_producto"];
             $can_base =(int) $rowc["cantidad"];
             $can    = (int) $_POST["cantidad"];
             $id_pro = (int) $_POST["id"];
+        // echo $id_pro_base;
+        // echo $id_pro;
         
                   if( $id_pro_base == $id_pro){   
                                  $total=$can+$can_base;
                     
-                                       $q="UPDATE `compras` SET `cantidad` = '$total' where id_producto='$id_pro'and id_factura='$id_factura";
+                                       $q="UPDATE `compras` SET `cantidad` = '$total' where id_producto='$id_pro'and id_factura='$id_factura'";
                                      //   UPDATE `compras` SET `cantidad` = '2' where id_producto='12'and id_factura='225';
                                    
         
@@ -45,10 +48,13 @@ if($_POST['comprar'] == "Comprar"){
     // echo $q;
         // exit
         //print_r($q);
-     $resource=$conn->query($q);
-     
+
+        echo $q;
       
-		header("Location: carrito.php");
+     $resource=$conn->query($q);
+     echo $q;
+    
+		header("Location: carrito.php?");
 	}
 ?>
 <?php

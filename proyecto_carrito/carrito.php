@@ -28,6 +28,8 @@ $id_user=$_SESSION['user_id'];
         $qc="UPDATE `factura` SET `subtotal` = '$_POST[subtotal]', `iva` = '$_POST[iva]', `total` = '$_POST[total]', `estado_pedido` = 'preparando'
          WHERE `factura`.`id` = '$id_factura';";
 
+echo $qc;
+
          $rc=$conn->query($qc);
         
 
@@ -53,7 +55,11 @@ $id_user=$_SESSION['user_id'];
       $r = $conn->query($q); 
       $t = $r->num_rows;
       
-    // $query=" SELECT id, nombre, frase_promocional, precio, codigo, categoria ,imagen FROM productos ORDER BY fecha DESC";
+    $query=" SELECT id, nombre, frase_promocional, precio, codigo, categoria ,imagen FROM productos ORDER BY fecha DESC";
+
+
+  
+
       ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -113,12 +119,19 @@ $id_user=$_SESSION['user_id'];
                                             
                                            <?php while ($row = $r->fetch_assoc()){?>
                                            
-                                       
+
+                              
                                             <tr class="cart_item wow fadeIn">
                                                 <td class="product-upper">
                                                <?php 
 
-                                               echo '<img src="data:image/jpeg;base64,' . base64_decode( $row['imagen'] ) . '" />';
+                                               //echo '<img src="data:image/jpeg;base64,' . base64_decode( $row['imagen'] ) . '" />';
+                                               
+                                               
+                                               echo '<img src="'.$row['imagen'].'" width="200px" height="200px">';
+
+                                               //echo '<img src="'.$imgData['usu_img'].'" width="200px" height="200px">'; 
+
                                                  ?>
 
                                                 </td>
@@ -168,27 +181,18 @@ $id_user=$_SESSION['user_id'];
 
     
                                             <tr>
-                                            <?php 
-                                            
-                                                $subtotalf = number_format($subtotal=($subtotal+$envio)-$descuento, 0, ',', '.');
-                                                ?>
+                                        
                                                 <td>Subtotal</td>
-                                                <td>$<?php echo $subtotalf; ?></td>
+                                                <td>$<?php echo number_format($subtotal=($subtotal+$envio)-$descuento, 0, ',', '.');?></td>
                                             </tr>
                                             <tr>
-                                            <?php 
-                                                $ivaf = number_format($iva = $subtotal*0.12, 0, ',', '.');
-                                                ?>
                                                 <td>iva 12%</td>
-                                                <td>$<?php echo $ivaf ;?></td>
+                                                <td>$<?php echo number_format($iva = $subtotal*0.12, 0, ',', '.');?></td>
                                             </tr>
 
                                             <tr class="order-total">
                                                 <th>Total Pedido</th>
-                                                <?php 
-                                                $totalf = number_format($total = $subtotal+$iva, 0, ',', '.');
-                                                ?>
-                                                <td><strong><span  class="amount">$<?php echo $totalf;?></span></strong> </td>
+                                                <td><strong><span class="amount">$<?php echo number_format($total = $subtotal+$iva, 0, ',', '.');?></span></strong> </td>
                                             </tr>
                                             <tr>
                                                 <td>Confirme Su Compra</td>
@@ -196,9 +200,9 @@ $id_user=$_SESSION['user_id'];
                                                     <form id="confirmar" name="confirmar"method="post" action="">
                                                         <input type="submit" name="confirmar" id="confirmar" value="confirmar" class="btn btn-success">
                                                         <!-- <input type="hidden" name="factura" id="factura" value="<?php echo $row1['id']?>">  -->
-                                                        <input type="hidden" name="subtotal" id="subtotal" value="<?php echo $subtotalf?>"> 
-                                                        <input type="hidden" name="iva" id="iva" value="<?php echo $ivaf?>"> 
-                                                        <input type="hidden" name="total" id="total" value="<?php echo $totalf?>"> 
+                                                        <input type="hidden" name="subtotal" id="subtotal" value="<?php echo $subtotal?>"> 
+                                                        <input type="hidden" name="iva" id="iva" value="<?php echo $iva?>"> 
+                                                        <input type="hidden" name="total" id="total" value="<?php echo $total?>"> 
                                                     </form>
                                                 </td>
                                             </tr>
