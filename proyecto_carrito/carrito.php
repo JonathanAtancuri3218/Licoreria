@@ -17,7 +17,7 @@ $id_factura=(int)$_SESSION['factura'];
 
 $id_user=$_SESSION['user_id'];
 	if(isset($_GET['idElm'])&& $_GET['idElm']<>""){
-		$q="DELETE FROM compras WHERE 1 AND id='$_GET[idElm]'";
+		$q="DELETE FROM compras WHERE  id='$_GET[idElm]'";
 		$r=$conn->query($q);
     }
     

@@ -14,12 +14,24 @@ $id_factura=(int)$_SESSION['factura'];
 echo $factura_vista;
 
 if ($factura_vista == ''){
-    $q="SELECT p.nombre as nombre , c.cantidad as cantidad, p.precio as precio FROM compras c
+
+    $q="SELECT f.id as id,cl.nombre as nombre, f.fecha as fecha ,cl.email as email, cl.telefono as telefono, cl.direccion, p.nombre as producto , c.cantidad as cantidad, p.precio as precio FROM compras c
         inner join productos p on p.id=c.id_producto
     inner join factura f on f.id=c.id_factura
+    inner join clientes cl  on cl.id = f.id_cliente
 where f.id_cliente=$id_usuario and f.id ='$id_factura'" ;
+$qui="INSERT INTO `factura` (`id`, `id_cliente`, `fecha`) VALUES (NULL, '$id_usuario',  CURRENT_TIMESTAMP)";
+$resource=$conn->query($qui);
+
+$qu="SELECT * from factura where id_cliente='$id_usuario'and estado_pedido = ''";
+$res=$conn->query($qu);
+$row3=$res->fetch_assoc();
+$cod_factura=(int)$row3['id'];
+$_SESSION['factura']=(int)$cod_factura;
 }else{
-    $q="SELECT p.nombre as nombre , c.cantidad as cantidad, p.precio as precio FROM compras c
+
+
+    $q="SELECT f.id as id,cl.nombre as nombre, cl.email as email, f.fecha as fecha , cl.telefono as telefono, cl.direccion, p.nombre as producto , c.cantidad as cantidad, p.precio as precio FROM compras c
     inner join productos p on p.id=c.id_producto
 inner join factura f on f.id=c.id_factura
 inner join clientes cl on f.id_cliente = cl.id
@@ -44,18 +56,15 @@ $q1=" SELECT  nombre,ubicacion,direccion from sucursales";
 }
 
 
-    //   $q="SELECT * FROM compras WHERE 1 AND cliente='$_SESSION[user_id]' ORDER BY fecha DESC";
-      $r = $conn->query($q); 
-      $t = $r->num_rows;
+$r = $conn->query($q);
+$rr = $conn->query($q); 
+$ro = $rr->fetch_assoc();
 
-       $q="INSERT INTO `factura` (`id`, `id_cliente`, `fecha`) VALUES (NULL, '$id_usuario',  CURRENT_TIMESTAMP)";
-      $resource=$conn->query($q);
-      
-      $qu="SELECT * from factura where id_cliente='$id_usuario'and estado_pedido = ''";
-      $res=$conn->query($qu);
-      $row3=$res->fetch_assoc();
-      $cod_factura=(int)$row3['id'];
-      $_SESSION['factura']=(int)$cod_factura;
+
+    //   $q="SELECT * FROM compras WHERE 1 AND cliente='$_SESSION[user_id]' ORDER BY fecha DESC";
+     
+
+       
 
 ?>
 <!DOCTYPE html>
@@ -148,7 +157,7 @@ $q1=" SELECT  nombre,ubicacion,direccion from sucursales";
                         </div>
                         <div class="col-md-3 target" style="background-color:white;">
                             <div class="form-group">
-                                <label for="id" class="col-sm-6 control-label">Cliente_Id</label>
+                                <label for="id" class="col-sm-6 control-label">Factura#</label>
                                 <div class="col-sm-9">
                                 <p><?php echo $ro['id']?></p>
                                 </div>

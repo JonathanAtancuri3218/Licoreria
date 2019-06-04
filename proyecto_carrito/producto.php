@@ -27,9 +27,10 @@ if($_POST['comprar'] == "Comprar"){
             $id_pro = (int) $_POST["idd"];
             
           
-            
-        // echo $id_pro_base;
-        // echo $id_pro;
+        //     echo $id_pro_base;
+        //     echo $can_base; 
+        //  echo $id_pro_base;
+        //  echo $id_pro;
         
                   if( $id_pro_base == $id_pro){   
                                  $total=$can+$can_base;
@@ -42,22 +43,20 @@ if($_POST['comprar'] == "Comprar"){
             
             $q="INSERT INTO `compras` (`id`, `cantidad`, `fecha`, `id_factura`, `id_producto`) 
             VALUES (NULL,'$_POST[cantidad]', CURRENT_TIMESTAMP,'$id_factura','$id_pro')";
-        
+        $bandera=1;
      
             }
 
-            // UPDATE `productos` SET `disponibilidad` = '20' WHERE `productos`.`id` = 7;
+         
 
             } 
     // echo $q;
         // exit
         //print_r($q);
-
-        echo  $q;
         
-        
-
      $resource=$conn->query($q);
+    
+     
     
 
      $q="  UPDATE `productos` SET `disponibilidad` = `disponibilidad` - '$can' WHERE `productos`.`id` = '$id_pro'";
