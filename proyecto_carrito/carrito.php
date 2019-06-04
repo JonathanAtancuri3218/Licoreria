@@ -106,7 +106,7 @@ echo $qc;
                                     <table cellspacing="0" class="shop_table cart">
                                         <thead>
                                             <tr>
-                                                <th class="product-thumbnail"><i class="fa fa-file-image-o" aria-hidden="true"></i> Foto</th>
+                                                <!-- <th class="product-thumbnail"><i class="fa fa-file-image-o" aria-hidden="true"></i> Foto</th> -->
                                                 <th class="product-name"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Producto</th>
                                                 <th class="product-price"><i class="fa fa-usd" aria-hidden="true"></i> Precio</th>
                                                 <th class="product-quantity">Cantidad</th>
@@ -122,10 +122,9 @@ echo $qc;
 
                               
                                             <tr class="cart_item wow fadeIn">
-                                                <td class="product-upper">
+                                                <!-- <td class="product-upper">
                                                
 
-<<<<<<< HEAD
 <?php 
 
 
@@ -136,19 +135,8 @@ echo ' <img style="width: 100px; height: 100px;" src="data:image/jpeg;base64' . 
                                                 
 
                                            
-=======
-                                               //echo '<img src="data:image/jpeg;base64,' . base64_decode( $row['imagen'] ) . '" />';
-                                               
-                                               
-                                               echo '<img src="'.$row['imagen'].'" width="200px" height="200px">';
 
-
-                                               //echo '<img src="'.$imgData['usu_img'].'" width="200px" height="200px">'; 
-
-                                                 ?>
->>>>>>> f6f7e306fd53a39b76d632ad1e8dcf5ab21c6b14
-
-                                                </td>
+                                                </td> -->
 
                                                 <td class="product-name">
                                                     <?php echo $row['nombre']?>
