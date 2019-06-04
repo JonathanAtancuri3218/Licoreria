@@ -8,13 +8,23 @@ header("Location: login.php");
 }
 ?>
 <?php	
+$factura_vista=$_GET['idElm'];
 $id_usuario=(int)$_SESSION['user_id'];
 $id_factura=(int)$_SESSION['factura'];
+echo $factura_vista;
 
+if ($factura_vista == ''){
     $q="SELECT p.nombre as nombre , c.cantidad as cantidad, p.precio as precio FROM compras c
         inner join productos p on p.id=c.id_producto
     inner join factura f on f.id=c.id_factura
 where f.id_cliente=$id_usuario and f.id ='$id_factura'" ;
+}else{
+    $q="SELECT p.nombre as nombre , c.cantidad as cantidad, p.precio as precio FROM compras c
+    inner join productos p on p.id=c.id_producto
+inner join factura f on f.id=c.id_factura
+where f.id_cliente=$id_usuario and f.id ='$factura_vista'" ;
+}
+
 
     //   $q="SELECT * FROM compras WHERE 1 AND cliente='$_SESSION[user_id]' ORDER BY fecha DESC";
       $r = $conn->query($q); 
