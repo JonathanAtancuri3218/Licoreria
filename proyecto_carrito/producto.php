@@ -24,7 +24,10 @@ if($_POST['comprar'] == "Comprar"){
             $id_pro_base = (int) $rowc["id_producto"];
             $can_base =(int) $rowc["cantidad"];
             $can    = (int) $_POST["cantidad"];
-            $id_pro = (int) $_POST["id"];
+            $id_pro = (int) $_POST["idd"];
+            
+          
+            
         // echo $id_pro_base;
         // echo $id_pro;
         
@@ -38,22 +41,34 @@ if($_POST['comprar'] == "Comprar"){
                         }else{
             
             $q="INSERT INTO `compras` (`id`, `cantidad`, `fecha`, `id_factura`, `id_producto`) 
-            VALUES (NULL,'$_POST[cantidad]', CURRENT_TIMESTAMP,'$id_factura','$_POST[id]')";
+            VALUES (NULL,'$_POST[cantidad]', CURRENT_TIMESTAMP,'$id_factura','$id_pro')";
         
      
             }
 
-            
+            // UPDATE `productos` SET `disponibilidad` = '20' WHERE `productos`.`id` = 7;
+
             } 
     // echo $q;
         // exit
         //print_r($q);
 
-        echo $q;
-      
+        echo  $q;
+        
+        
+
      $resource=$conn->query($q);
-     echo $q;
     
+
+     $q="  UPDATE `productos` SET `disponibilidad` = `disponibilidad` - '$can' WHERE `productos`.`id` = '$id_pro'";
+ 
+     $resource=$conn->query($q);
+
+    //   $q="INSERT INTO `compras` (`id`, `cantidad`, `fecha`, `id_factura`, `id_producto`) 
+            // VALUES (NULL,'$_POST[cantidad]', CURRENT_TIMESTAMP,'$id_factura','$_POST[id]')";
+        
+    
+
 		header("Location: carrito.php?");
 	}
 ?>
@@ -136,8 +151,9 @@ $row = $resource->fetch_assoc();
                                     
                                     <form method="post" name="comprar" id="comprar" class="cart">
                                         <div class="quantity">
-                                            <input type="number" size="4" class="input-text qty text" title="Cantidad" value="1" name="cantidad" min="1" step="1">
-                                            <input type="hidden" name="id" id="id" value="<?php echo $row['id']?>">
+                                            <input type="number" size="4" class="input-text qty text" title="Cantidad" value="1" name="cantidad" min="1" step="1" max='<?php echo $row['disponibilidad']?>'>
+                                            <input type="hidden" name="idd" id="idd" value="<?php echo $row['id']?>">
+                                           
                                             <input type="hidden" name="codigo" id="codigo" value="<?php echo $row['codigo']?>">
                                             <input type="hidden" name="nombre" id="nombre" value="<?php echo $row['nombre']?>">
                                             <input type="hidden" name="precio" id="precio" value="<?php echo $row['precio']?>">
@@ -146,7 +162,7 @@ $row = $resource->fetch_assoc();
                                             
 
                                         </div>
-                                        <?php if ($row['disponibilidad'] != 0){?>
+                                        <?php if ($row['disponibilidad'] > 0){?>
                                         <input type="submit" name="comprar" id="comprar" value="Comprar" class="add_to_cart_button">
                                         <?php }else{?>
                                         <input type="submit" name="comprar" id="comprar" value="Producto Agotado" class="nox-disponible" disabled>

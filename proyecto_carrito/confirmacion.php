@@ -14,35 +14,12 @@ $id_factura=(int)$_SESSION['factura'];
 echo $factura_vista;
 
 if ($factura_vista == ''){
-   
-  $q="INSERT INTO `factura` (`id`, `id_cliente`, `fecha`) VALUES (NULL, '$id_usuario',  CURRENT_TIMESTAMP)";
-  $resource=$conn->query($q);
-  
-  $r = $conn->query($q); 
-  $t = $r->num_rows;
-  
-
-  $qu="SELECT * from factura where id_cliente='$id_usuario'and estado_pedido = ''";
-  $res=$conn->query($qu);
-  $row3=$res->fetch_assoc();
-  $cod_factura=(int)$row3[id];
-  $_SESSION[factura]=(int)$cod_factura;
-
-  $q= " SELECT cl.id as id, cl.nombre as nombre , f.fecha as fecha, cl.email as email, cl.telefono as telefono, cl.direccion as direccion, p.nombre as producto , c.cantidad as cantidad, p.precio as precio FROM compras c
-  inner join productos p on p.id=c.id_producto
-inner join factura f on f.id=c.id_factura
-inner join clientes cl on f.id_cliente = cl.id
-where f.id_cliente='$id_usuario' and f.id ='$id_factura'" ;
-$r = $conn->query($q); 
-$t = $r->num_rows;
-$ro = $r->fetch_assoc();
-
+    $q="SELECT p.nombre as nombre , c.cantidad as cantidad, p.precio as precio FROM compras c
+        inner join productos p on p.id=c.id_producto
+    inner join factura f on f.id=c.id_factura
+where f.id_cliente=$id_usuario and f.id ='$id_factura'" ;
 }else{
-    // $q="SELECT p.nombre as nombre , c.cantidad as cantidad, p.precio as precio FROM compras c
-    // inner join productos p on p.id=c.id_producto
-    // inner join factura f on f.id=c.id_factura
-    // where f.id_cliente=$id_usuario and f.id ='$factura_vista'" ;
-   $q= " SELECT cl.id as id, cl.nombre as nombre , f.fecha as fecha, cl.email as email, cl.telefono as telefono, cl.direccion as direccion, p.nombre as producto , c.cantidad as cantidad, p.precio as precio FROM compras c
+    $q="SELECT p.nombre as nombre , c.cantidad as cantidad, p.precio as precio FROM compras c
     inner join productos p on p.id=c.id_producto
 inner join factura f on f.id=c.id_factura
 inner join clientes cl on f.id_cliente = cl.id
@@ -67,12 +44,18 @@ $q1=" SELECT  nombre,ubicacion,direccion from sucursales";
 }
 
 
-
-
     //   $q="SELECT * FROM compras WHERE 1 AND cliente='$_SESSION[user_id]' ORDER BY fecha DESC";
-   
+      $r = $conn->query($q); 
+      $t = $r->num_rows;
 
-     
+       $q="INSERT INTO `factura` (`id`, `id_cliente`, `fecha`) VALUES (NULL, '$id_usuario',  CURRENT_TIMESTAMP)";
+      $resource=$conn->query($q);
+      
+      $qu="SELECT * from factura where id_cliente='$id_usuario'and estado_pedido = ''";
+      $res=$conn->query($qu);
+      $row3=$res->fetch_assoc();
+      $cod_factura=(int)$row3['id'];
+      $_SESSION['factura']=(int)$cod_factura;
 
 ?>
 <!DOCTYPE html>
