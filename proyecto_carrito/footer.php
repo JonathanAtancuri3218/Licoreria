@@ -4,7 +4,7 @@
             <div class="row">
                 <div class="col-md-4">
                     <div class="footer-about-us">
-                        <a href="index.php"><img src="img/portada.JPG" ></a>
+                        <a href="index.php"><img src="img/LogoUPS.JPG" ></a>
                         <p>Objetivo comercializar y distribuir licores de calidad, tanto nacionales como importados, para satisfacer las necesidades de los consumidores, con un equipo de trabajo íntegro y comprometido.</p>
                         <div class="footer-social">
                             <a href="https://www.facebook.com/" target="_blank"><i class="fa fa-facebook"></i></a>
@@ -20,7 +20,7 @@
                         <h2 class="footer-wid-title"> Usuario</h2>
                         <ul>
                             <?php if($_SESSION['user_id']){?>
-                            <li><a href="mis-datos.php?id=<?php echo $_SESSION[user_id]?>"><i class="fa fa-user" aria-hidden="true"></i> Mis datos</a></li>
+                            <li><a href="mis-datos.php?id=<?php echo $_SESSION['user_id']?>"><i class="fa fa-user" aria-hidden="true"></i> Mis datos</a></li>
                             <li><a href="carrito.php"><i class="fa fa-shopping-cart"></i> Mi Carrito</a></li>
                             <li><a href="logout.php"><i class="fa fa-sign-out" aria-hidden="true"></i> Salir</a></li>
                             <?php }else{?>
