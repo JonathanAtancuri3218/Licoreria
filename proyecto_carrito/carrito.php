@@ -123,8 +123,20 @@ echo $qc;
                               
                                             <tr class="cart_item wow fadeIn">
                                                 <td class="product-upper">
-                                               <?php 
+                                               
 
+<<<<<<< HEAD
+<?php 
+
+
+echo ' <img style="width: 100px; height: 100px;" src="data:image/jpeg;base64' . base64_encode($row['imagen']) . '">';
+                   
+
+?>
+                                                
+
+                                           
+=======
                                                //echo '<img src="data:image/jpeg;base64,' . base64_decode( $row['imagen'] ) . '" />';
                                                
                                                
@@ -134,6 +146,7 @@ echo $qc;
                                                //echo '<img src="'.$imgData['usu_img'].'" width="200px" height="200px">'; 
 
                                                  ?>
+>>>>>>> f6f7e306fd53a39b76d632ad1e8dcf5ab21c6b14
 
                                                 </td>
 

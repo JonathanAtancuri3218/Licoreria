@@ -36,8 +36,8 @@ where f.id_cliente=$id_usuario and f.id ='$factura_vista'" ;
       $qu="SELECT * from factura where id_cliente='$id_usuario'and estado_pedido = ''";
       $res=$conn->query($qu);
       $row3=$res->fetch_assoc();
-      $cod_factura=(int)$row3[id];
-      $_SESSION[factura]=(int)$cod_factura;
+      $cod_factura=(int)$row3['id'];
+      $_SESSION['factura']=(int)$cod_factura;
 
 ?>
 <!DOCTYPE html>

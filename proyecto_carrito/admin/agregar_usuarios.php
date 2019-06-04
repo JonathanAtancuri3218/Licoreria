@@ -8,7 +8,10 @@ header("Location: index.php");
 require_once('../conexion.php'); ?>
 <?php
 	if($_POST['agregarUsuario'] == "agregarUsuario"){
-        $usuario_id=$_SESSION['idUser'];
+				$usuario_id=$_SESSION['idUser'];
+$image = new Imagick("image.jpg");
+$data = $image->getImageBlob();
+$data = $mysqli->real_escape_string($data);
 		$q="INSERT INTO `clientes` (`id`, `nombre`, `email`, `telefono`, `nacionalidad`, `direccion`, `numero`, `comuna`, `usuario`, `contrasena`, `fecha`)
            VALUES (NULL, '$_POST[nombre]', '$_POST[email]', '$_POST[telefono]', '$_POST[nacionalidad]','$_POST[direccion]', '$_POST[numero]','$_POST[comuna]','$_POST[usuario]','$_POST[contrasena]',CURRENT_TIMESTAMP)";
         //echo($q);
