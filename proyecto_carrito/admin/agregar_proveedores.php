@@ -8,8 +8,8 @@ header("Location: index.php");
 require_once('../conexion.php'); ?>
 <?php
 	if($_POST['agregarProveedor'] == "agregarProveedor"){
-        $usuario_id=$_SESSION['idUser'];
-		$q="INSERT INTO `proveedores` (`id`, `nombre`, `contacto`, `telefono`, `direccion`, `date_add`, `usuario_id`, `status`) VALUES (NULL, '$_POST[nombre]', '$_POST[contacto]', '$_POST[telefono]', '$_POST[direccion]',CURRENT_TIMESTAMP, '$usuario_id','1')";
+        //$usuario_id=$_SESSION['idUser'];
+		$q="INSERT INTO proveedores (id, nombre, contacto, telefono, direccion, date_add,estado) VALUES (NULL, '$_POST[nombre]', '$_POST[contacto]', '$_POST[telefono]', '$_POST[direccion]',CURRENT_TIMESTAMP,'1')";
         //echo($q);
         
 

@@ -14,7 +14,7 @@ $_SESSION['email']=$row['email'];
 $_SESSION['telefono']=$row['telefono'];
 $_SESSION['pais']=$row['pais'];
 $_SESSION['direccion']=$row['direccion'];
-$volver=($_SESSION['volver'])?$_SESSION['volver']:"	../admin/listado_productos.php";
+$volver=($_SESSION['volver'])?$_SESSION['volver']:"listado_productos.php";
 header("Location: ".$volver);
 } else {
 $error="Usuario/Clave no registrados";

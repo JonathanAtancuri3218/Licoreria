@@ -6,24 +6,35 @@ if((isset($_POST['usuario']) && $_POST[usuario]<>"") && (isset($_POST[contrasena
 $query="SELECT * FROM clientes WHERE usuario='$_POST[usuario]' AND contrasena='$_POST[contrasena]'";
 $resource=$conn->query($query);
 if($t=$resource->num_rows){
-  
-
-
 
 $row=$resource->fetch_assoc();
-$_SESSION[user_id]=$row[id];
-$_SESSION[nombre]=$row[nombre];
-$_SESSION[email]=$row[email];
-$_SESSION[telefono]=$row[telefono];
-$_SESSION[pais]=$row[pais];
-$_SESSION[direccion]=$row[direccion];
+$_SESSION['user_id']=$row[id];
+$_SESSION['nombre']=$row[nombre];
+$_SESSION['email']=$row[email];
+$_SESSION['telefono']=$row[telefono];
+$_SESSION['pais']=$row[pais];
+$_SESSION['direccion']=$row[direccion];
 
-$q="INSERT INTO `factura` (`id`, `id_cliente`, `fecha`) VALUES (NULL, '$row[id]',  CURRENT_TIMESTAMP)";
+
+$quer="SELECT * from factura where id_cliente='$row[id]' and estado_pedido = ''";
+$resour=$conn->query($quer);
+if($resour->num_rows){
+  $row2=$resour->fetch_assoc();
+
+  $cod_factura=(int)$row2[id];
+  $_SESSION[factura]=$cod_factura;
+}else{
+
+  $q="INSERT INTO `factura` (`id`, `id_cliente`, `fecha`) VALUES (NULL, '$row[id]',  CURRENT_TIMESTAMP)";
 $resource=$conn->query($q);
 
-$_SESSION[fac]='1';
-
-$volver=($_SESSION[volver])?$_SESSION[volver]:"tienda.php";
+$qu="SELECT * from factura where id_cliente='$row[id]'and estado_pedido = ''";
+$res=$conn->query($qu);
+$row3=$res->fetch_assoc();
+$cod_factura=(int)$row3[id];
+$_SESSION[factura]=$cod_factura;
+}
+$volver=($_SESSION[volver])?$_SESSION[volver]:"tienda.php?id_factura=$cod_factura";
 header("Location: ".$volver);
 } else {
 $error="Usuario/Clave no registrados";

@@ -3,9 +3,16 @@ error_reporting('E_ALL ^ E_NOTICE');
 require_once('conexion.php');
 ?>
 <?php
+
+$id_factura=(int)$_SESSION['factura'];
 $max=24;
 $por_pagina = 24;
 $pag=0;
+
+echo $id_factura;
+
+
+
 if(isset($_GET["pag"]) && $_GET["pag"] <>""){
     $pag=$_GET["pag"];
 }
@@ -92,6 +99,7 @@ $total_pag = ceil($total/$max)-1;
       
   </head>
   <body>
+   
    
     <!-- header -->
     <?php include("header.php");?><!-- fin header -->  

@@ -17,16 +17,21 @@ if(isset($_GET['pag']) && $_GET['pag'] <>""){
 $pag=$_GET['pag'];
 }
 
-$query=mysqli_query($conn,"SELECT id,nombre,email,telefono,nacionalidad FROM clientes 
+$busqueda=strtolower($_GET['busqueda']);
+if(empty($busqueda)){
+  header("location:listado_usuarios.php" );
+} 
+
+ $query="SELECT * FROM clientes 
         WHERE (id LIKE '%$busqueda%' OR
                 nombre LIKE '%$busqueda%' OR
                 email LIKE '%$busqueda%' OR
                 telefono LIKE '%$busqueda%' OR
                 nacionalidad LIKE '%$busqueda%')
-        AND estado = 1  ORDER BY id ASC");
-$resultado = mysqli_fetch_array($query);
+        AND estado = 1  ORDER BY id ASC";
 
- 
+$resultado = $conn->query($query);
+
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -65,22 +70,13 @@ $resultado = mysqli_fetch_array($query);
     </form>
 
  <br>
-        <?php
-        $busqueda=strtolower($_REQUEST['busqueda']);
-        if(empty($busqueda)){
-          header("location:listado_usuarios.php" );
-        } 
-        ?>
+ <h2>Listado de Usuarios</h2> 
 
-
-
-      <h2>Listado de Usuarios</h2> 
-
-      <form action="buscar_usuario.php" method="get" class=form-search>
-      <input type="text" name="busqueda" id="busqueda" placeholder="Buscar" value="<?php echo $busqueda;?>">
-      <input type="submit" value="Buscar" class="btn_search">
-      </form>
-      <br>
+<form action="buscar_usuario.php" method="get" class=form-search>
+<input type="text" name="busqueda" id="busqueda" placeholder="Buscar" value="<?php echo $busqueda;?>">
+<input type="submit" value="Buscar" class="btn_search"  >
+</form>
+<br>
         <div class="table-responsive">
             <table class="table">
                 <thead>
@@ -96,8 +92,9 @@ $resultado = mysqli_fetch_array($query);
                 </thead>
                 <tbody>
                  <?php  
-                 $result=mysqli_nums_rows($query);
-                 while ($row = mysqli_fetch_array($query)){?>
+                 
+             	  
+                 while ($row = $resultado->fetch_assoc()){?>
                   <tr>
                   <td class="col-xs-3 col-sm-3 col-md-4 col-lg-3"><?php echo $row['id']?></td>
                     <td class="col-xs-3 col-sm-3 col-md-4 col-lg-3"><?php echo $row['nombre']?></td>
@@ -109,7 +106,16 @@ $resultado = mysqli_fetch_array($query);
                   </tr>
 
 
-                  <?php } ?>
+                  <?php }
+                  
+  
+                   ?>
+
+<?php 
+// Resultado, número de registros y contenido.
+echo $registros;
+echo $texto; 
+?>
                 </tbody>
             </table>    
 

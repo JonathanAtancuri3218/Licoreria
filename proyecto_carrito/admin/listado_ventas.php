@@ -1,14 +1,15 @@
 <?php 
-error_reporting(E_ALL ^ E_NOTICE);
+error_reporting('E_ALL ^ E_NOTICE');
 if(!isset($_SESSION))session_start();
 if(!$_SESSION['admin_id']){
-$_SESSION[volver]=$_SERVER['PHP_SELF']."?".$_SERVER['QUERY_STRING'];
+$_SESSION['volver']=$_SERVER['PHP_SELF']."?".$_SERVER['QUERY_STRING'];
 header("Location: index.php");
 }
 require_once('../conexion.php'); ?>
 <?php
+$id_user=$_SESSION['admin_id'];
 if(isset($_GET['idElm'])&& $_GET['idElm']<>""){
-		$q="DELETE FROM clientes WHERE 1 AND id='$_GET[idElm]'";
+		$q="DELETE FROM compras WHERE 1 AND id='$_GET[idElm]'";
 		$r=$conn->query($q);
 	}
 $max=5;
@@ -17,12 +18,17 @@ if(isset($_GET['pag']) && $_GET['pag'] <>""){
 $pag=$_GET['pag'];
 }
 $inicio=$pag * $max;
-$sql="SELECT id, nombre, email, telefono, nacionalidad FROM clientes where 
-estado = 1  ORDER BY id ASC";
+$sql="SELECT f.id ,c.nombre, f.fecha ,f.total, f.estado_pedido FROM factura f
+INNER JOIN clientes c  WHERE f.id_cliente = c.id and f.estado_pedido != ''"; 
+
+
+
+
 $resultado = $conn->query($sql);
 
 ?>
 <!DOCTYPE html>
+
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -41,69 +47,69 @@ $resultado = $conn->query($sql);
                 max-width: 40%;
             }
         </style>
+    <?php include("head.php");?>
+    <style>
+    .descuento{
+        display: none;
+        background-color: greenyellow;
+    }  
+    </style>
+  </head>
 </head>
 <body>
     <?php 
-      include("header.php"); 
       include("menu_admin.php"); 
     ?>
     <div class="container">                 
       <ul class="pager">
        <?php if($pag-1 >= 0){?>
-        <li><a href="listado_usuarios.php?pag=<?php echo $pag -1?>&total=<?php echo $total?>">Anterior</a></li>
+        <li><a href="listado_ventas.php?pag=<?php echo $pag -1?>&total=<?php echo $total?>">Anterior</a></li>
         <?php } ?>
         | <?php echo ($inicio + 1) ?> a <?php echo min($inicio + $max, $total) ?> | de <?php echo $total ?>
         
         <?php if($pag +1 <= $total_pag ){?>
-        <li><a href="listado_usuarios.php?pag=<?php echo $pag +1?>&total=<?php echo $total?>">Siguiente</a></li>
+        <li><a href="listado_ventas.php?pag=<?php echo $pag +1?>&total=<?php echo $total?>">Siguiente</a></li>
         <?php } ?>
       </ul>
     </div>
     <div class="container">
     <br>
-    <form method="POST" action="agregar_usuarios.php">
-    <input type="submit" class="btn btn-success" id="agregarUsuario"  name="agregarUsuario" value="Agregar Usuario" />
-    </form>
+  
+      <h2>Ventas</h2> 
 
- <br>
-
-
-
-
-      <h2>Listado de Usuarios</h2> 
-
-      <form action="buscar_usuario.php" method="get" class=form-search>
-      <input type="text" name="busqueda" id="busqueda" placeholder="Buscar" value="<?php echo $busqueda;?>">
-      <input type="submit" value="Buscar" class="btn_search"  >
-      </form>
+      
       <br>
         <div class="table-responsive">
             <table class="table">
                 <thead>
                   <tr>
                   <th>ID</th>
-                    <th>Nombre Usuario</th>
-                    <th>Email</th>
-                    <th>Teléfono</th>
-                    <th>Nacionalidad</th>
-                    <th>Modificar</th>
-                 	<th>Eliminar</th>
+                    <th>Cliente</th>
+                    <th>Fecha</th>
+                    <th>Total</th>
+                 	<th>Estado Pedido</th>
+                   <th> Ver </th>
+                 	<th>Anular</th>
+
+
                   </tr>
                 </thead>
                 <tbody>
                  <?php  
                                   if ($resultado > 0) {
                  while ($row = $resultado->fetch_assoc()){?>
-
-
                   <tr>
                   <td class="col-xs-3 col-sm-3 col-md-4 col-lg-3"><?php echo $row['id']?></td>
                     <td class="col-xs-3 col-sm-3 col-md-4 col-lg-3"><?php echo $row['nombre']?></td>
-                    <td class="col-xs-3 col-sm-3 col-md-4 col-lg-3"><a href="mailto:<?php echo $row['email']?>"><?php echo $row['email']?></a></td>
-                    <td class="col-xs-3 col-sm-3 col-md-4 col-lg-3"><a href="tel:<?php echo $row['telefono']?>"><?php echo $row['telefono']?></a></td>
-                    <td class="col-xs-3 col-sm-3 col-md-4 col-lg-3"><?php echo $row['nacionalidad']?></td>
-                    <td class="col-xs-3 col-sm-3 col-md-4 col-lg-3"><a href="usuarios_modificar.php?id=<?php echo $row['id']?>" class="btn btn-md btn-success"><span class="glyphicon glyphicon-wrench" aria-hidden="true"></span></a></td>
-                    <td class="col-xs-3 col-sm-3 col-md-4 col-lg-3"><a href="listado_usuarios.php?idElm=<?php echo $row['id']?>" class="btn btn-md btn-danger" onClick="return confirm('¿Está seguro que desea eliminar este Usuario?')"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td>
+                    <td class="col-xs-3 col-sm-3 col-md-4 col-lg-3"><?php echo $row['fecha']?></td>
+                    <td class="col-xs-3 col-sm-3 col-md-4 col-lg-3"><?php echo $row['total']?></td>
+                    <td class="col-xs-3 col-sm-3 col-md-4 col-lg-3"><?php echo $row['estado_pedido']?></td>
+                    <td>
+                    <a href="listado_facturas.php?id=<?php echo $row['id']?>"  class="btn btn-info"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a>
+                    </td>
+                    <td>
+                     <a href="../carrito.php?idElm=<?php echo $row['id']?>" onClick="return confirm('¿Está seguro que desea eliminar esta factura')" class="btn btn-danger"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
+                     </td>
                   </tr>
                   <?php }
                   } else {
