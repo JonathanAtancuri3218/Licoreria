@@ -109,7 +109,7 @@ $ro = $rr->fetch_assoc();
                         <div class="product-bit-title text-right">
                         
                           <address>
-                           <strong class="">local Principal</strong><br class="">
+                           <strong class="">Local Principal</strong><br class="">
                            <strong class="">Direccion: </strong> Carrer Ciutadella nº 26 A<br class="">
                            <strong class="">Calle: </strong> 07008 Palma<br class="">
                            <strong class="">Ciudad: </strong> Cuenca-Ecuador<br class="">                          

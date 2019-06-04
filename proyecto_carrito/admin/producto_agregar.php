@@ -374,7 +374,7 @@ if(isset($_POST["submit"])){
 					<div class="form-group">
 					  <label class="col-md-4 control-label"></label>
 					  <div class="col-md-4"><br>
-					   <input type="submit" class="btn btn-success" value="agregarProducto" name="agregarProducto" id="agregarProducto">
+					   <input type="submit" class="btn btn-success" value="Agregar Producto" name="agregarProducto" id="agregarProducto">
 					  </div>
 					</div>
 

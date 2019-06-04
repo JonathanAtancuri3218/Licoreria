@@ -179,7 +179,7 @@ require_once('../conexion.php'); ?>
 					<div class="form-group">
 					  <label class="col-md-4 control-label"></label>
 					  <div class="col-md-4"><br>
-					   <input type="submit" class="btn btn-success" value="agregarProveedor" name="agregarProveedor" id="agregarProveedor">
+					   <input type="submit" class="btn btn-success" value="Agregar Proveedor" name="agregarProveedor" id="agregarProveedor">
 					  </div>
 					</div>
 
